@@ -1,0 +1,111 @@
+{
+  "name": "你是怎样的情人",
+  "topic": [],
+  "content": [
+    {
+      "question": "你想象中最好的第一次约会是什么样？",
+      "answerOptions": [
+        {
+          "optionIndex": "A",
+          "optionContent": "聊骚甚至亲密举动"
+        },
+        {
+          "optionIndex": "B",
+          "optionContent": "在海滩边两个人手牵手看日落，喝着美酒享受海风"
+        },
+        {
+          "optionIndex": "C",
+          "optionContent": "只要和对方在一起做什么都行"
+        },
+        {
+          "optionIndex": "D",
+          "optionContent": "看电影和一起吃晚饭"
+        }
+      ]
+    },
+    {
+      "question": "你一般在什么场合遇见心仪的对象？",
+      "answerOptions": [
+        {
+          "optionIndex": "A",
+          "optionContent": "在酒吧或者夜店"
+        },
+        {
+          "optionIndex": "B",
+          "optionContent": "友情发展成爱情"
+        },
+        {
+          "optionIndex": "C",
+          "optionContent": "朋友介绍或相亲"
+        },
+        {
+          "optionIndex": "D",
+          "optionContent": "不记得了"
+        }
+      ]
+    },
+    {
+      "question": "你最喜欢对象的哪一点？",
+      "answerOptions": [
+        {
+          "optionIndex": "A",
+          "optionContent": "亲密关系"
+        },
+        {
+          "optionIndex": "B",
+          "optionContent": "性格好，又聪明"
+        },
+        {
+          "optionIndex": "C",
+          "optionContent": "人品好"
+        },
+        {
+          "optionIndex": "D",
+          "optionContent": "长得好看/帅气"
+        }
+      ]
+    },
+    {
+      "question": "别人怎么形容自己在对象面前的样子？",
+      "answerOptions": [
+        {
+          "optionIndex": "A",
+          "optionContent": "别人觉得我们过于腻歪看着都累"
+        },
+        {
+          "optionIndex": "B",
+          "optionContent": "有人说超级甜，也有人说肉麻"
+        },
+        {
+          "optionIndex": "C",
+          "optionContent": "有人会问我是不是喜欢真的他/她，觉得我们甚至不像在谈恋爱"
+        },
+        {
+          "optionIndex": "D",
+          "optionContent": "觉得都是我付出许多"
+        }
+      ]
+    },
+    {
+      "question": "与对象如何相处？",
+      "answerOptions": [
+        {
+          "optionIndex": "A",
+          "optionContent": "在没人的地方上演激情戏"
+        },
+        {
+          "optionIndex": "B",
+          "optionContent": "整天腻歪，抱在一起聊天"
+        },
+        {
+          "optionIndex": "C",
+          "optionContent": "正常约会，吃饭看电影"
+        },
+        {
+          "optionIndex": "D",
+          "optionContent": "保持距离，有自己的空间"
+        }
+      ]
+    }
+  ]
+}
