@@ -225,15 +225,8 @@ export class UsersController {
 }
  */
   @Post('updateUserInfo')
-  async updateUserInfo(@Body() user: any): Promise<any> {
-    let validator = {
-      type: 'object',
-      properties: {
-        openid: { type: 'string' },
-      },
-      required: ['openid'],
-    }
-    AjvService.verify(user, validator)
+  async updateUserInfo(@Body() user: any, @Req() req: any): Promise<any> {
+    user.openid = req.user.openid
     await this.userService.updateUserInfo(user)
     return 'success'
   }
@@ -241,7 +234,7 @@ export class UsersController {
   /**
   @apiGroup User
   @apiVersion 0.1.0
-  @api {get} http://localhost:8009/users/getUserInfo/4  获取用户信息
+  @api {get} http://localhost:8009/users/getUserInfo  获取用户信息
  
   @apiSuccessExample Success-Response:
     HTTP/1.1 200 OK 
@@ -289,9 +282,9 @@ export class UsersController {
   msg:""
   }  
  */
-  @Get('getUserInfo/:openid')
-  async getUserInfo(@Param() params): Promise<IUserDetail> {
-    return await this.userService.getUserInfo(params.openid)
+  @Get('getUserInfo')
+  async getUserInfo(@Req() req: any): Promise<IUserDetail> {
+    return await this.userService.getUserInfo(req.user.openid)
   }
 
   /**
