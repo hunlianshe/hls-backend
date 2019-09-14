@@ -64,9 +64,9 @@ export class ClientService {
     let url = `${config.TIANAPI.HOST}/txapi/xingzuo?${params}&key=${config.TIANAPI.KEY}`
     if (map.get(url + moment().format('YYYYMMDD')))
       return map.get(url + moment().format('YYYYMMDD'))
-    console.log('url', url)
     let result = JSON.parse(await request(url))
+    console.log('result', result)
     map.set(url + moment().format('YYYYMMDD'), result.result)
-    return result.result
+    return result.newslist[0]
   }
 }
