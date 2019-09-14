@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, HttpException } from '@nestjs/common'
 const Core = require('@alicloud/pop-core')
 import * as config from 'config'
 let client
@@ -6,9 +6,11 @@ let client
 @Injectable()
 export class SmsService {
   static init() {
+    // client = new Core({accessKeyId:  config.ALIDY.AccessKey, secretAccessKey: config.ALIDY.AccessKey})
+    console.log(config.ALIDY)
     client = new Core({
       accessKeyId: config.ALIDY.AccessKey,
-      accessKeySecret: config.ALIDY.AccessKey,
+      accessKeySecret: config.ALIDY.AccessSecret,
       endpoint: config.ALIDY.endpoint,
       apiVersion: '2017-05-25',
     })
@@ -23,11 +25,14 @@ export class SmsService {
       TemplateCode: 'SMS_173765371',
       TemplateParam: '{"code":"' + code + '"}',
     }
-    console.log(params)
-
     var requestOption = {
       method: 'POST',
     }
-    return await client.request('SendSms', params, requestOption)
+    try {
+      return await client.request('SendSms', params, requestOption)
+    } catch (error) {
+      console.log('error', error)
+      throw new HttpException('发送频率过快，请稍后尝试', 400)
+    }
   }
 }

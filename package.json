@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@alicloud/pop-core": "^1.7.7",
+    "@alicloud/sms-sdk": "^1.1.6",
     "@nestjs/common": "^6.0.0",
     "@nestjs/core": "^6.0.0",
     "@nestjs/platform-express": "^6.0.0",

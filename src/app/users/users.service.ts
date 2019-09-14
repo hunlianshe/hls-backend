@@ -4,6 +4,8 @@ import { UserDetail } from '../../models/user_detail'
 import { IUserDetail } from '../../models/user_detail'
 import { ClientService } from '../../lib/client.service'
 import { SmsService } from '../../lib/sms.service'
+import { Sms } from '../../models/sms'
+import * as moment from 'moment'
 
 @Injectable()
 export class UsersService {
@@ -17,7 +19,7 @@ export class UsersService {
       { $set: data },
       { new: true, upsert: true },
     )
-    await this.updateUserInfo(user)
+    await this.updateUserInfo(data)
     return user
   }
 
@@ -58,6 +60,18 @@ export class UsersService {
     let code = Math.random()
       .toFixed(6)
       .slice(-6)
+    let sms = new Sms({ code, phone, expiredAt: moment() })
+    sms.save()
     return await SmsService.sendSms(phone, code)
+  }
+
+  async addPhone(phone: string, code: string, openid: string): Promise<void> {
+    let sms = await Sms.findOne({ phone, code })
+    if (!sms) throw new HttpException('验证码已过期,请重新发送', 400)
+    console.log('openid', openid)
+    console.log('phone', phone)
+    await UserDetail.update({ openid }, { $set: { phone } })
+    console.log('{phone,code}', { phone, code })
+    await Sms.remove({ phone, code })
   }
 }

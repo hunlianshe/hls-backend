@@ -1,8 +1,26 @@
-import { Injectable, NestMiddleware } from '@nestjs/common'
+import { Injectable, NestMiddleware, HttpException } from '@nestjs/common'
+import { SecureService } from '../lib/secure.service'
+import { User, IUser } from '../models/user'
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
-  async use(req: Request, res: Response, next: Function) {
+  async use(req: any, res: Response, next: Function) {
+    if (req.url.includes('openidfromwx') || req.url.includes('register'))
+      return next()
+    let token = req.headers.authorization
+    if (!token || !token.includes('Bearer'))
+      throw new HttpException('Authentication failed', 401)
+    token = token.replace('Bearer ', '')
+    let tokenMessage
+    try {
+      tokenMessage = SecureService.jwtDecrypt(token)
+    } catch (err) {
+      console.error('err', err)
+      throw new HttpException('Authentication failed', 401)
+    }
+    let user = await User.findOne({ openid: tokenMessage.openid })
+    req.user = user
+    console.log('req.user', req.user)
     await next()
   }
 }

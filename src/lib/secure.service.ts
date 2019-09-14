@@ -4,9 +4,9 @@ const jwt = require('jsonwebtoken')
 
 @Injectable()
 export class SecureService {
-  static generateToken = (id: string, expireTime?: Date) => {
+  static generateToken = (openid: string, expireTime?: Date) => {
     let condition: any = {}
-    condition.id = id
+    condition.openid = openid
     let token = SecureService.jwtCrypto(condition, expireTime)
     return token
   }
@@ -19,5 +19,9 @@ export class SecureService {
       crypto = jwt.sign(payload, jwtSecretKey)
     }
     return crypto
+  }
+  static jwtDecrypt(text: string): any {
+    let jwtSecretKey = config.SECURE.keys.jwtSecretKey
+    return jwt.verify(text, jwtSecretKey)
   }
 }

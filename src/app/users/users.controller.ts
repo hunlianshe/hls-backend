@@ -1,5 +1,5 @@
 import { UsersService } from './users.service'
-import { Controller, Get, Post, Body, Param } from '@nestjs/common'
+import { Controller, Get, Post, Body, Param, Req } from '@nestjs/common'
 import { IUser } from '../../models/user'
 import { AjvService } from '../../lib/ajv.service'
 import { SecureService } from '../../lib/secure.service'
@@ -54,7 +54,16 @@ export class UsersController {
     }
   @apiSuccessExample Success-Response:
     HTTP/1.1 200 OK 
-    {"code":200,"message":"success"}
+    {
+    "data": {
+        "Message": "OK",
+        "RequestId": "F8F33217-DD96-4057-BBCC-539D5BD58CD3",
+        "BizId": "836213868437871773^0",
+        "Code": "OK"
+    },
+    "code": 200,
+    "message": "success"
+}
 
   @apiErrorExample Error-Response:
       HTTP/1.1 200 
@@ -112,10 +121,50 @@ export class UsersController {
       required: ['openid'],
     }
     AjvService.verify(user, validator)
+    console.log('user', user)
     await this.userService.register(user)
     return {
       token: SecureService.generateToken(user.openid),
     }
+  }
+
+  /**
+  @apiGroup User
+  @apiVersion 0.1.0
+  @api {post} /users/register  创建用户
+ @apiParamExample {json} Request-Example:
+ {
+	"phone":"18818216454",
+	"code":"812901"
+}
+
+  @apiSuccessExample Success-Response:
+    HTTP/1.1 200 OK 
+{
+    "code": 200,
+    "message": "success"
+}
+
+  @apiErrorExample Error-Response:
+      HTTP/1.1 200 
+  {
+  code:400
+  msg:"the openid is not exists",
+  }
+ */
+
+  @Post('addPhone')
+  async addPhone(@Body() body: any, @Req() req: any): Promise<any> {
+    let validator = {
+      type: 'object',
+      properties: {
+        phone: { type: 'string' },
+      },
+      required: ['phone', 'code'],
+    }
+    let user: any = req.user
+    AjvService.verify(body, validator)
+    await this.userService.addPhone(body.phone, body.code, user.openid)
   }
 
   /**
