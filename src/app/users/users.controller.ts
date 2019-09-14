@@ -48,7 +48,7 @@ export class UsersController {
   @apiVersion 0.1.0
   @api {post} http://localhost:8009/users/sendSms  发送短信接口
   
-  \@apiParamExample {json} Request-Example:
+  @apiParamExample {json} Request-Example:
     {
       "phone":"18818216454",
     }
@@ -131,19 +131,19 @@ export class UsersController {
   /**
   @apiGroup User
   @apiVersion 0.1.0
-  @api {post} /users/register  创建用户
+  @api {post} /users/addPhone  手机注册
  @apiParamExample {json} Request-Example:
  {
-	"phone":"18818216454",
-	"code":"812901"
+	"phone":"18818216454", //只是补充信息，需要加token
+	"code":"812901" 
 }
 
   @apiSuccessExample Success-Response:
     HTTP/1.1 200 OK 
-{
+   {
     "code": 200,
     "message": "success"
-}
+   }
 
   @apiErrorExample Error-Response:
       HTTP/1.1 200 
