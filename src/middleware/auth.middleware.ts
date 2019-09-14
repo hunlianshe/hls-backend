@@ -20,7 +20,6 @@ export class AuthMiddleware implements NestMiddleware {
     }
     let user = await User.findOne({ openid: tokenMessage.openid })
     req.user = user
-    console.log('req.user', req.user)
     await next()
   }
 }

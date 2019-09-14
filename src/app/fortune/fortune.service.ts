@@ -13,4 +13,13 @@ export class FortuneService {
   async constellationMmatching(params: string): Promise<IFortune> {
     return await ClientService.constellationMmatching(params)
   }
+  async updateDoc(): Promise<void> {
+    console.log('are you coming')
+    let fortures = await Fortune.find()
+    for (let i = 0; i < fortures.length; i++) {
+      fortures[i].desc = fortures[i].desc.replace(/\n/g, '<br></br>')
+      console.log('fortures[i].desc', fortures[i].desc)
+      fortures[i].save()
+    }
+  }
 }

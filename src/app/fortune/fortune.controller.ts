@@ -6,6 +6,10 @@ import { IFortune } from '../../models/fortune'
 export class FortuneController {
   constructor(private readonly fortuneService: FortuneService) {}
 
+  @Get('updateDoc')
+  async updateDoc(): Promise<void> {
+    await this.fortuneService.updateDoc()
+  }
   /**
   @apiGroup Fortune
   @apiVersion 0.1.0
