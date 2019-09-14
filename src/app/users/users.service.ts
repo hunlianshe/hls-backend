@@ -3,6 +3,7 @@ import { User, IUser } from '../../models/user'
 import { UserDetail } from '../../models/user_detail'
 import { IUserDetail } from '../../models/user_detail'
 import { ClientService } from '../../lib/client.service'
+import { SmsService } from '../../lib/sms.service'
 
 @Injectable()
 export class UsersService {
@@ -51,5 +52,12 @@ export class UsersService {
     let melikes: any = UserDetail.findOne({ openid })
     melikes = melikes.likes
     // const melikes = UserDetail.findOne({openid})
+  }
+
+  async sendSms(phone: string): Promise<void> {
+    let code = Math.random()
+      .toFixed(6)
+      .slice(-6)
+    return await SmsService.sendSms(phone, code)
   }
 }

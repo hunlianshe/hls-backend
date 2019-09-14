@@ -46,6 +46,31 @@ export class UsersController {
   /**
   @apiGroup User
   @apiVersion 0.1.0
+  @api {post} http://localhost:8009/users/sendSms  发送短信接口
+  
+  \@apiParamExample {json} Request-Example:
+    {
+      "phone":"18818216454",
+    }
+  @apiSuccessExample Success-Response:
+    HTTP/1.1 200 OK 
+    {"code":200,"message":"success"}
+
+  @apiErrorExample Error-Response:
+      HTTP/1.1 200 
+  {
+  code:500,
+  msg:""
+  }  
+ */
+  @Post('sendSms')
+  async sendSms(@Body() body: any): Promise<any> {
+    return await this.userService.sendSms(body.phone)
+  }
+
+  /**
+  @apiGroup User
+  @apiVersion 0.1.0
   @api {post} /users/register  创建用户
  @apiParamExample {json} Request-Example:
  {
