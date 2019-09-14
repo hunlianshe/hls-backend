@@ -1,24 +1,24 @@
-import * as mongoose from 'mongoose'
-import * as mongoosePaginate from 'mongoose-paginate'
-import { Document } from 'mongoose'
+import * as mongoose from 'mongoose';
+import * as mongoosePaginate from 'mongoose-paginate';
+import { Document } from 'mongoose';
 interface IPsychologicalTest extends Document {
-  name: String
+  name: String;
   content: [
     {
-      question: String
+      question: String;
       answerOptions: [
         {
-          optionIndex: String
-          optionContent: String
+          optionIndex: String;
+          optionContent: String;
         },
-      ]
+      ];
     },
-  ]
+  ];
   //-------Audit field-----------------------
   //create date
-  createdAt: Date
+  createdAt: Date;
   //update
-  updatedAt: Date
+  updatedAt: Date;
 }
 
 var psychologicalTestSchema = new mongoose.Schema(
@@ -49,12 +49,12 @@ var psychologicalTestSchema = new mongoose.Schema(
     timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
     collection: 'psychologicalTest',
   },
-)
+);
 
-psychologicalTestSchema.plugin(mongoosePaginate)
+psychologicalTestSchema.plugin(mongoosePaginate);
 const PsychologicalTest = mongoose.model(
   'PsychologicalTest',
   psychologicalTestSchema,
-)
+);
 
-export { IPsychologicalTest, PsychologicalTest }
+export { IPsychologicalTest, PsychologicalTest };

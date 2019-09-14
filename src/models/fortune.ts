@@ -1,17 +1,17 @@
-import * as mongoose from 'mongoose'
-import * as mongoosePaginate from 'mongoose-paginate'
-import { Document } from 'mongoose'
+import * as mongoose from 'mongoose';
+import * as mongoosePaginate from 'mongoose-paginate';
+import { Document } from 'mongoose';
 interface IFortune extends Document {
-  name: String
-  birth: String
-  attributes: String
-  feature: String
-  desc: String
+  name: String;
+  birth: String;
+  attributes: String;
+  feature: String;
+  desc: String;
   //-------Audit field-----------------------
   //create date
-  createdAt: Date
+  createdAt: Date;
   //update
-  updatedAt: Date
+  updatedAt: Date;
 }
 
 var fortuneSchema = new mongoose.Schema(
@@ -34,9 +34,9 @@ var fortuneSchema = new mongoose.Schema(
     timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
     collection: 'fortune',
   },
-)
+);
 
-fortuneSchema.plugin(mongoosePaginate)
-const Fortune = mongoose.model('Fortune', fortuneSchema)
+fortuneSchema.plugin(mongoosePaginate);
+const Fortune = mongoose.model('Fortune', fortuneSchema);
 
-export { IFortune, Fortune }
+export { IFortune, Fortune };
