@@ -5,11 +5,17 @@ import { LibModule } from './lib/lib.module'
 import { UsersModule } from './app/users/users.module'
 import { AuthMiddleware } from './middleware/auth.middleware'
 import { FortuneModule } from './app/fortune/fortune.module'
-import { PsychologicalTestController } from './app/psychological-test/psychological-test.controller'
 import { PsychologicalTestModule } from './app/psychological-test/psychological-test.module'
+import { ConstellationStoryModule } from './app/constellation-story/constellation-story.module'
 
 @Module({
-  imports: [LibModule, UsersModule, FortuneModule, PsychologicalTestModule],
+  imports: [
+    LibModule,
+    UsersModule,
+    FortuneModule,
+    PsychologicalTestModule,
+    ConstellationStoryModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
