@@ -282,7 +282,7 @@ export class UsersController {
   msg:""
   }  
  */
-  @Get('getUserInfo')
+  @Get('getUserInfo/:openid')
   async getUserInfo(
     @Req() req: any,
     @Param() params: any,
