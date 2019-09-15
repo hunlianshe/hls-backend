@@ -352,7 +352,7 @@ export class UsersController {
 @api {post} http://localhost:8009/users/listLikes  获取对应喜欢类别的用户列表
 @apiParamExample {json} Request-Example:
 {
-"type": "meLike"
+"type": "meLike" // 1.likeMe 2.likeEachOther 3.meLike
 }
 
 @apiSuccessExample Success-Response:
@@ -417,5 +417,79 @@ msg:""
   @Post('listLikes')
   async listLikes(@Body() body, @Req() req: any): Promise<IUserDetail[]> {
     return await this.userService.listLikes(body.type, req.user.openid)
+  }
+
+  /**
+@apiGroup User
+@apiVersion 0.1.0
+@api {post} http://localhost:8009/users/listUsers  获取缘分列表
+@apiParamExample {json} Request-Example:
+{
+	"objectId": "5d7c8c0969b249fc58bdbced" // _id
+}
+
+@apiSuccessExample Success-Response:
+  HTTP/1.1 200 OK 
+ {
+  "data": [
+      {
+          "objectInfo": {
+              "salary": "月薪:2万-5万",
+              "height": "178cm以上",
+              "age": "23-37岁"
+          },
+          "photos": [
+              "https://photo.zastatic.com/images/photo/467571/1870282366/960647145683513.png",
+              "https://photo.zastatic.com/images/photo/467571/1870282366/963471443961834.png",
+              "https://photo.zastatic.com/images/photo/467571/1870282366/963471443960586.png",
+              "https://photo.zastatic.com/images/photo/467571/1870282366/963471443964435.png",
+              "https://photo.zastatic.com/images/photo/467571/1870282366/963471443963108.png",
+              "https://photo.zastatic.com/images/photo/467571/1870282366/963471443966899.png"
+          ],
+          "likes": [
+              "1"
+          ],
+          "_id": "5d74d60cc2de8bfb0bae9fdb",
+          "openid": "1870282366",
+          "avator": "https://photo.zastatic.com/images/cms/banner/20181121/8311191311554389.png",
+          "birth": "1995-2-4",
+          "constellation": "魔羯座(12.22-01.19)",
+          "createdAt": "2019-09-08T10:20:59.856Z",
+          "education": "本科",
+          "gender": 1,
+          "height": 160,
+          "name": "慕烟",
+          "nationality": "汉族",
+          "updatedAt": "2019-09-08T12:01:54.444Z",
+          "isRealAvator": true,
+          "phone": "176021394",
+          "age": 27,
+          "hasChild": false,
+          "haveHouse": true,
+          "isMarriage": false,
+          "jobDetail": "银行",
+          "jobGeneral": "金融",
+          "salary": "8001-12000",
+          "wantChild": true,
+          "workCity": "上海",
+          "workProvince": "上海",
+          "workRegion": "黄浦区"
+      }
+      ...
+  ],
+  "code": 200,
+  "message": "success"
+}
+
+@apiErrorExample Error-Response:
+    HTTP/1.1 200 
+{
+code:500,
+msg:""
+}  
+*/
+  @Post('listUsers')
+  async listUsers(@Body() body): Promise<any> {
+    return await this.userService.listUsers(body.objectId)
   }
 }
