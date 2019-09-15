@@ -18,6 +18,8 @@ export class PsychologicalTestController {
     "data":[
         {
             "_id":"5d74976396d970539ed3d6e4",
+            //心理测试类型
+             "type":"1",
             // 整套心理题目的标题
             "name":"你是怎样的情人",
             // 心理题目的内容
