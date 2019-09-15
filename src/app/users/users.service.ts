@@ -7,6 +7,7 @@ import { SmsService } from '../../lib/sms.service'
 import { Sms } from '../../models/sms'
 import * as moment from 'moment'
 import { ILikeType } from '../../types/index'
+import { ObjectId } from 'mongodb'
 
 @Injectable()
 export class UsersService {
@@ -108,5 +109,17 @@ export class UsersService {
     if (!sms) throw new HttpException('验证码已过期,请重新发送', 400)
     await UserDetail.update({ openid }, { $set: { phone } })
     await Sms.remove({ phone, code })
+  }
+
+  async listUsers(id: string): Promise<IUserDetail[]> {
+    if (id === '') {
+      return await UserDetail.find({})
+        .sort({ _id: -1 })
+        .limit(10)
+    } else {
+      return await UserDetail.find({ _id: { $lt: ObjectId(id) } })
+        .sort({ _id: -1 })
+        .limit(10)
+    }
   }
 }
