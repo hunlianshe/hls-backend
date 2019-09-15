@@ -174,7 +174,7 @@ export class UsersController {
  @apiParamExample {json} Request-Example:
 {
   "openid": "2", // wx openid - string
-  "name": "刘宽", // 昵称  - string
+  "nickName": "刘宽", // 昵称  - string
   "gender": 1, //性别 - number
   "birth": "1995-2-4", //生日 - string
   "height": 183, //升高 - string
@@ -234,7 +234,7 @@ export class UsersController {
   /**
   @apiGroup User
   @apiVersion 0.1.0
-  @api {get} http://localhost:8009/users/getUserInfo  获取用户信息
+  @api {get} http://localhost:8009/users/getUserInfo/openid  获取用户信息
  
   @apiSuccessExample Success-Response:
     HTTP/1.1 200 OK 
@@ -242,7 +242,7 @@ export class UsersController {
      code:200,
      data:{
   "openid": "2", // wx openid - string
-  "name": "刘宽", // 昵称  - string
+  "nickName": "刘宽", // 昵称  - string
   "gender": 1, //性别 - number
   "birth": "1995-2-4", //生日 - string
   "height": 183cm, //升高 - number
@@ -282,9 +282,12 @@ export class UsersController {
   msg:""
   }  
  */
-  @Get('getUserInfo')
-  async getUserInfo(@Req() req: any): Promise<IUserDetail> {
-    return await this.userService.getUserInfo(req.user.openid)
+  @Get('getUserInfo/:openid')
+  async getUserInfo(
+    @Req() req: any,
+    @Param() params: any,
+  ): Promise<IUserDetail> {
+    return await this.userService.getUserInfo(params.openid)
   }
 
   /**
@@ -385,7 +388,7 @@ export class UsersController {
           "education": "本科",
           "gender": 1,
           "height": 160,
-          "name": "慕烟",
+          "nickName": "慕烟",
           "nationality": "汉族",
           "updatedAt": "2019-09-08T12:01:54.444Z",
           "isRealAvator": true,
@@ -458,7 +461,7 @@ msg:""
           "education": "本科",
           "gender": 1,
           "height": 160,
-          "name": "慕烟",
+          "nickName": "慕烟",
           "nationality": "汉族",
           "updatedAt": "2019-09-08T12:01:54.444Z",
           "isRealAvator": true,
