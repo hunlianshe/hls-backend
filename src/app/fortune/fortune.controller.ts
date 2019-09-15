@@ -53,7 +53,7 @@ export class FortuneController {
   /**
   @apiGroup Fortune
   @apiVersion 0.1.0
-  @api {get} /horoscope/realtime?consName=白羊座&type=today  获取实时星座运势
+  @api {get} /fortune/horoscope/realtime?consName=白羊座&type=today  获取实时星座运势
 
   @apiSuccessExample Success-Response:
     HTTP/1.1 200 OK 
@@ -96,7 +96,7 @@ export class FortuneController {
   /**
   @apiGroup Fortune
   @apiVersion 0.1.0
-  @api {get} /constellationMmatching/detail?me=金牛&he=白羊  简单星座匹配
+  @api {get} /fortune/constellationMmatching/detail?me=金牛&he=白羊  简单星座匹配
 
   @apiSuccessExample Success-Response:
     HTTP/1.1 200 OK 
