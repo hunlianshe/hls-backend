@@ -43,7 +43,7 @@ export class UsersService {
   }
 
   async like(me: string, openid: string): Promise<void> {
-    const user = UserDetail.findOne({ openid })
+    const user = await UserDetail.findOne({ openid })
     if (!user) {
       throw new HttpException('user not exists', 400)
     }
