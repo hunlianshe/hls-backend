@@ -6,6 +6,7 @@ import { ClientService } from '../../lib/client.service'
 import { SmsService } from '../../lib/sms.service'
 import { Sms } from '../../models/sms'
 import * as moment from 'moment'
+import { ILikeType } from '../../types/index'
 
 @Injectable()
 export class UsersService {
@@ -48,12 +49,49 @@ export class UsersService {
     await UserDetail.update({ openid: me }, { $addToSet: { likes: openid } })
   }
 
-  async countLike(openid: string): Promise<void> {
-    let likeMes = UserDetail.find({ likes: openid })
-    likeMes = likeMes.map(likeme => likeme.openid)
-    let melikes: any = UserDetail.findOne({ openid })
-    melikes = melikes.likes
-    // const melikes = UserDetail.findOne({openid})
+  async countLike(openid: string): Promise<any> {
+    let res = {
+      likesMesCount: 0,
+      melikesCount: 0,
+      likeEachOtherCount: 0,
+    }
+    const likeMe: [IUserDetail] = await UserDetail.find({ likes: openid })
+    res.likeEachOtherCount = likeMe.length || 0
+    const userSelf: IUserDetail = await UserDetail.findOne({ openid })
+    res.melikesCount = userSelf.likes.length || 0
+    likeMe.forEach((user: IUserDetail) => {
+      if (userSelf.likes.indexOf(user.openid) !== -1) {
+        res.likeEachOtherCount += 1
+      }
+    })
+    return [
+      { type: ILikeType.meLike, count: res.melikesCount },
+      { type: ILikeType.likeMe, count: res.likesMesCount },
+      { type: ILikeType.likeEachOther, count: res.likeEachOtherCount },
+    ]
+  }
+
+  async listLikes(
+    queryType: ILikeType,
+    openid: string,
+  ): Promise<IUserDetail[]> {
+    switch (queryType) {
+      case ILikeType.likeMe:
+        return await UserDetail.find({ likes: openid })
+      case ILikeType.meLike:
+        const userMe: IUserDetail = await UserDetail.findOne({ openid })
+        return await UserDetail.find({ openid: { $in: userMe.likes } })
+      default:
+        const likeEachOtherIds = []
+        const likeMe: [IUserDetail] = await UserDetail.find({ likes: openid })
+        const userSelf: IUserDetail = await UserDetail.findOne({ openid })
+        likeMe.forEach((user: IUserDetail) => {
+          if (userSelf.likes.indexOf(user.openid) !== -1) {
+            likeEachOtherIds.push(user.openid)
+          }
+        })
+        return await UserDetail.find({ openid: { $in: likeEachOtherIds } })
+    }
   }
 
   async sendSms(phone: string): Promise<void> {
