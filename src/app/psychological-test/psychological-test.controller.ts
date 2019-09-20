@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Param } from '@nestjs/common'
+import { Controller, Get, Post, Param, Body } from '@nestjs/common'
 import { PsychologicalTestService } from './psychological-test.service'
 import { IPsychologicalTest } from '../../models/psychologicalTest'
+import { request } from 'http'
 
 @Controller('psychological-test')
 export class PsychologicalTestController {
@@ -117,5 +118,10 @@ export class PsychologicalTestController {
   @Get(':id')
   async getPsyTestById(@Param() params): Promise<IPsychologicalTest> {
     return await this.psyService.findPsyTestById(params.id)
+  }
+
+  @Post('/generateCatOrDogResult')
+  async generateCatOrDogResult(@Body() Body): Promise<any> {
+    return await this.psyService.generateCatOrDogResult(Body)
   }
 }

@@ -1,111 +1,245 @@
-{
-  "name": "你是怎样的情人",
-  "topic": [],
-  "content": [
-    {
-      "question": "你想象中最好的第一次约会是什么样？",
-      "answerOptions": [
-        {
-          "optionIndex": "A",
-          "optionContent": "聊骚甚至亲密举动"
-        },
-        {
-          "optionIndex": "B",
-          "optionContent": "在海滩边两个人手牵手看日落，喝着美酒享受海风"
-        },
-        {
-          "optionIndex": "C",
-          "optionContent": "只要和对方在一起做什么都行"
-        },
-        {
-          "optionIndex": "D",
-          "optionContent": "看电影和一起吃晚饭"
-        }
-      ]
-    },
-    {
-      "question": "你一般在什么场合遇见心仪的对象？",
-      "answerOptions": [
-        {
-          "optionIndex": "A",
-          "optionContent": "在酒吧或者夜店"
-        },
-        {
-          "optionIndex": "B",
-          "optionContent": "友情发展成爱情"
-        },
-        {
-          "optionIndex": "C",
-          "optionContent": "朋友介绍或相亲"
-        },
-        {
-          "optionIndex": "D",
-          "optionContent": "不记得了"
-        }
-      ]
-    },
-    {
-      "question": "你最喜欢对象的哪一点？",
-      "answerOptions": [
-        {
-          "optionIndex": "A",
-          "optionContent": "亲密关系"
-        },
-        {
-          "optionIndex": "B",
-          "optionContent": "性格好，又聪明"
-        },
-        {
-          "optionIndex": "C",
-          "optionContent": "人品好"
-        },
-        {
-          "optionIndex": "D",
-          "optionContent": "长得好看/帅气"
-        }
-      ]
-    },
-    {
-      "question": "别人怎么形容自己在对象面前的样子？",
-      "answerOptions": [
-        {
-          "optionIndex": "A",
-          "optionContent": "别人觉得我们过于腻歪看着都累"
-        },
-        {
-          "optionIndex": "B",
-          "optionContent": "有人说超级甜，也有人说肉麻"
-        },
-        {
-          "optionIndex": "C",
-          "optionContent": "有人会问我是不是喜欢真的他/她，觉得我们甚至不像在谈恋爱"
-        },
-        {
-          "optionIndex": "D",
-          "optionContent": "觉得都是我付出许多"
-        }
-      ]
-    },
-    {
-      "question": "与对象如何相处？",
-      "answerOptions": [
-        {
-          "optionIndex": "A",
-          "optionContent": "在没人的地方上演激情戏"
-        },
-        {
-          "optionIndex": "B",
-          "optionContent": "整天腻歪，抱在一起聊天"
-        },
-        {
-          "optionIndex": "C",
-          "optionContent": "正常约会，吃饭看电影"
-        },
-        {
-          "optionIndex": "D",
-          "optionContent": "保持距离，有自己的空间"
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "name": "你是怎样的情人",
+    "topic": [],
+    "content": [
+      {
+        "question": "你想象中最好的第一次约会是什么样？",
+        "answerOptions": [
+          {
+            "optionIndex": "A",
+            "optionContent": "聊骚甚至亲密举动"
+          },
+          {
+            "optionIndex": "B",
+            "optionContent": "在海滩边两个人手牵手看日落，喝着美酒享受海风"
+          },
+          {
+            "optionIndex": "C",
+            "optionContent": "只要和对方在一起做什么都行"
+          },
+          {
+            "optionIndex": "D",
+            "optionContent": "看电影和一起吃晚饭"
+          }
+        ]
+      },
+      {
+        "question": "你一般在什么场合遇见心仪的对象？",
+        "answerOptions": [
+          {
+            "optionIndex": "A",
+            "optionContent": "在酒吧或者夜店"
+          },
+          {
+            "optionIndex": "B",
+            "optionContent": "友情发展成爱情"
+          },
+          {
+            "optionIndex": "C",
+            "optionContent": "朋友介绍或相亲"
+          },
+          {
+            "optionIndex": "D",
+            "optionContent": "不记得了"
+          }
+        ]
+      },
+      {
+        "question": "你最喜欢对象的哪一点？",
+        "answerOptions": [
+          {
+            "optionIndex": "A",
+            "optionContent": "亲密关系"
+          },
+          {
+            "optionIndex": "B",
+            "optionContent": "性格好，又聪明"
+          },
+          {
+            "optionIndex": "C",
+            "optionContent": "人品好"
+          },
+          {
+            "optionIndex": "D",
+            "optionContent": "长得好看/帅气"
+          }
+        ]
+      },
+      {
+        "question": "别人怎么形容自己在对象面前的样子？",
+        "answerOptions": [
+          {
+            "optionIndex": "A",
+            "optionContent": "别人觉得我们过于腻歪看着都累"
+          },
+          {
+            "optionIndex": "B",
+            "optionContent": "有人说超级甜，也有人说肉麻"
+          },
+          {
+            "optionIndex": "C",
+            "optionContent": "有人会问我是不是喜欢真的他/她，觉得我们甚至不像在谈恋爱"
+          },
+          {
+            "optionIndex": "D",
+            "optionContent": "觉得都是我付出许多"
+          }
+        ]
+      },
+      {
+        "question": "与对象如何相处？",
+        "answerOptions": [
+          {
+            "optionIndex": "A",
+            "optionContent": "在没人的地方上演激情戏"
+          },
+          {
+            "optionIndex": "B",
+            "optionContent": "整天腻歪，抱在一起聊天"
+          },
+          {
+            "optionIndex": "C",
+            "optionContent": "正常约会，吃饭看电影"
+          },
+          {
+            "optionIndex": "D",
+            "optionContent": "保持距离，有自己的空间"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "测测你在恋爱关系中是猫系还是犬系",
+    "topic": [],
+    "content": [
+      {
+        "question": "你喜欢看哪种类型的电影？",
+        "answerOptions": [
+          {
+            "optionIndex": "A",
+            "optionContent": "剧情，喜剧"
+          },
+          {
+            "optionIndex": "B",
+            "optionContent": "浪漫，魔幻"
+          },
+          {
+            "optionIndex": "C",
+            "optionContent": "悬疑，惊悚"
+          },
+          {
+            "optionIndex": "D",
+            "optionContent": "纪录片，科教片"
+          }
+        ]
+      },
+      {
+        "question": "你觉得你的强项和优点是什么？",
+        "answerOptions": [
+          {
+            "optionIndex": "A",
+            "optionContent": "聪明机智，学习能力强"
+          },
+          {
+            "optionIndex": "B",
+            "optionContent": "赋有艺术细胞，创造力强"
+          },
+          {
+            "optionIndex": "C",
+            "optionContent": "领导能力强，能合理安排工作"
+          },
+          {
+            "optionIndex": "D",
+            "optionContent": "人际关系强，人脉广"
+          }
+        ]
+      },
+      {
+        "question": "你今天过得很糟糕，你准备睡觉之前如果让自己放松一下缓解压力？",
+        "answerOptions": [
+          {
+            "optionIndex": "A",
+            "optionContent": "看一部电影/电视剧或者读一会儿书"
+          },
+          {
+            "optionIndex": "B",
+            "optionContent": "约朋友去酒吧喝酒蹦迪嗨起来"
+          },
+          {
+            "optionIndex": "C",
+            "optionContent": "泡个澡，洗个泡泡浴，喝点小酒吃点小零食"
+          },
+          {
+            "optionIndex": "D",
+            "optionContent": "找能懂我的朋友聊天倾诉"
+          }
+        ]
+      },
+      {
+        "question": "如果可以给自己换一个名字，你想换成什么样的名字？",
+        "answerOptions": [
+          {
+            "optionIndex": "A",
+            "optionContent": "不换，我挺喜欢自己现在的名字的"
+          },
+          {
+            "optionIndex": "B",
+            "optionContent": "我要换一个独一无二特立独行的名字，甚至可以带有生僻字让老师/领导读不来"
+          },
+          {
+            "optionIndex": "C",
+            "optionContent": "我想换一个更顺口好记的名字"
+          },
+          {
+            "optionIndex": "D",
+            "optionContent": "我想换一个又有创造力又有文化底蕴的名字，能概括出我的优秀"
+          }
+        ]
+      },
+      {
+        "question": "在社交场合，比如在一场派对中，你是什么样的？",
+        "answerOptions": [
+          {
+            "optionIndex": "A",
+            "optionContent": "并不是核心人物，比较中庸，是聊天很舒服的那类人"
+          },
+          {
+            "optionIndex": "B",
+            "optionContent": "很独立，独来独往，或者只和少数关系非常好的朋友一起聊天"
+          },
+          {
+            "optionIndex": "C",
+            "optionContent": "我是派对核心人物，甚至组织者，人群中最闪耀的那种人"
+          },
+          {
+            "optionIndex": "D",
+            "optionContent": "我朋友很多，在派对中如鱼得水，不是最闪耀的人，却拥有很广的人脉"
+          }
+        ]
+      },
+      {
+        "question": "人固有一死，你希望最终你以什么样的方式死去？",
+        "answerOptions": [
+          {
+            "optionIndex": "A",
+            "optionContent": "毫无痛苦地快速死去"
+          },
+          {
+            "optionIndex": "B",
+            "optionContent": "为自己热爱的事业牺牲，如英雄战死疆场，居里夫人为科学献身等等"
+          },
+          {
+            "optionIndex": "C",
+            "optionContent": "为自己爱的人献出生命"
+          },
+          {
+            "optionIndex": "D",
+            "optionContent": "轰轰烈烈且有纪念意义的死法，让世人铭记"
+          }
+        ]
+      }
+    ]
+  }
+]
