@@ -61,6 +61,9 @@ export class ClientService {
   }
 
   static async constellationMmatching(params): Promise<any> {
+    params = decodeURI(params).replace(/座/gi, '')
+    params = encodeURI(params)
+    console.log('params', params)
     let url = `${config.TIANAPI.HOST}/txapi/xingzuo?${params}&key=${config.TIANAPI.KEY}`
     if (map.get(url + moment().format('YYYYMMDD')))
       return map.get(url + moment().format('YYYYMMDD'))

@@ -1,5 +1,5 @@
 import { UsersService } from './users.service'
-import { Controller, Get, Post, Body, Param, Req } from '@nestjs/common'
+import { Controller, Get, Post, Body, Param, Req, Put } from '@nestjs/common'
 import { IUser } from '../../models/user'
 import { AjvService } from '../../lib/ajv.service'
 import { SecureService } from '../../lib/secure.service'
@@ -306,7 +306,7 @@ export class UsersController {
   msg:""
   }  
  */
-  @Get('like/:openid')
+  @Put('like/:openid')
   async like(@Param() params, @Req() req: any): Promise<any> {
     return await this.userService.like(req.user.openid, params.openid)
   }
