@@ -135,7 +135,7 @@ export class FortuneController {
   /**
   @apiGroup Fortune
   @apiVersion 0.1.0
-  @api {get} /fortune/constellationMmatching/detail?me=金牛&he=白羊  简单星座匹配
+  @api {get} /fortune/constellationMmatching/detail-complex 简单星座匹配和复杂星座匹配
 
   @apiSuccessExample Success-Response:
     HTTP/1.1 200 OK 
