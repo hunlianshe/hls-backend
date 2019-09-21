@@ -3,7 +3,7 @@ import * as mongoosePaginate from 'mongoose-paginate'
 import { Document } from 'mongoose'
 interface IPsychologicalTest extends Document {
   name: String
-  type: number
+  type: String
   content: [
     {
       question: String
