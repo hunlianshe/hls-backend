@@ -140,11 +140,25 @@ export class FortuneController {
   @apiSuccessExample Success-Response:
     HTTP/1.1 200 OK 
 
- {
+{
     "data": {
-        "title": "金牛座：白羊座",
-        "grade": "友情：★★爱情：★★★婚姻：★★亲情：★★",
-        "content": "节奏不同是你们天生的问题，一个冲动，一个慢半拍，要把你们放在同一个世界一起生活，看来大家要非常容忍对方，如果不是，很难看到长远。白羊座的人喜欢用强烈的追求攻势去攻陷金牛座的人的心，但金牛座固执求稳的性格，必然会深思熟虑才肯接受追求，中间拉拉扯扯的时候，可能白羊座已经忍不住转身就走。如果真是可以走在一起，大家不妨用双打网球的原理，一个补、一个攻，也许能够创出光明的前途，大前提当然是已经能理解和接受对方的特性。假如金牛座一方是男性，白羊座的女性就要更主动、加大追求力度。白羊座的人还要学习金牛座深思熟虑的处事态度，明白这点，大家都有好处的。性生活方面，金牛喜欢耳鬓撕磨，白羊则速战速决，有时候要学会迁就对方了。"
+        "salary": 80,
+        "height": 60,
+        "age": 60,
+        "star": {
+            "title": "射手",
+            "grade": "友情：★★★爱情：★★★婚姻：★★★亲情：★★★",
+            "content": "智商：125。智慧多数发挥在学东西方面，尤其是语言，能够很快上手。问题分析这方面可能较弱，但是往往都有好主意、好办法。而且懂得能好好地把握机会，将自己多方面的才华尽量显露于别人眼前，受人赞赏，智商较高。"
+        },
+        "me": {
+            "openid": "oV2Js5THL6EdzDahAxCTxFoXyjHk",
+            "avatarUrl": "https://photo.zastatic.com/images/photo/467571/1870282366/960647145683513.png"
+        },
+        "opposite": {
+            "openid": "oV2Js5Y-cIYQpxzjmyiVTZAGUpgw",
+            "avatarUrl": "https://photo.zastatic.com/images/photo/467571/1870282366/960647145683513.png"
+        },
+        "average": 67
     },
     "code": 200,
     "message": "success"
@@ -156,13 +170,11 @@ export class FortuneController {
   msg:""
   }  
  */
-  @Post('/constellationMmatching/detail-complex')
-  async constellationMmatchingComplex(
-    @Req() request: any,
-    @Body() opposite: any,
-  ): Promise<IFortune> {
+  @Get('/constellationMmatching/detail-complex')
+  async constellationMmatchingComplex(@Req() request: any): Promise<IFortune> {
     return await this.fortuneService.constellationMmatchingComplex(
       request.user.openid,
+      request.query.type,
     )
   }
 }

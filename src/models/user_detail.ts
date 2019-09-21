@@ -1,42 +1,42 @@
-import * as mongoose from 'mongoose';
-import * as mongoosePaginate from 'mongoose-paginate';
-import { Document } from 'mongoose';
+import * as mongoose from 'mongoose'
+import * as mongoosePaginate from 'mongoose-paginate'
+import { Document } from 'mongoose'
 
 interface IUserDetail extends Document {
-  openid: String;
-  age: Number;
-  nickName: String;
-  gender: Number;
-  birth: String;
-  height: String;
-  salary: String;
-  workProvince: String;
-  workCity: String;
-  workRegion: String;
-  education: String;
-  isMarriage: String;
-  hasChild: String;
-  wantChild: String;
-  jobGeneral: String;
-  jobDetail: String;
-  haveHouse: String;
-  phone: String;
-  avator: String;
-  photos: [String];
-  nationality: String;
-  constellation: String;
-  isRealAvator: String;
-  likes: [String];
+  openid: String
+  age: Number
+  nickName: String
+  gender: Number
+  birth: String
+  height: String
+  salary: String
+  workProvince: String
+  workCity: String
+  workRegion: String
+  education: String
+  isMarriage: String
+  hasChild: String
+  wantChild: String
+  jobGeneral: String
+  jobDetail: String
+  haveHouse: String
+  phone: String
+  avatarUrl: String
+  photos: [String]
+  nationality: String
+  constellation: String
+  isRealAvator: String
+  likes: [String]
   objectInfo: {
-    salary: String;
-    height: String;
-    age: String;
-  };
+    salary: String
+    height: String
+    age: String
+  }
   //-------Audit field-----------------------
   //create date
-  createdAt: Date;
+  createdAt: Date
   //update
-  updatedAt: Date;
+  updatedAt: Date
 }
 
 var userDetailSchema = new mongoose.Schema(
@@ -59,7 +59,7 @@ var userDetailSchema = new mongoose.Schema(
     jobDetail: String,
     haveHouse: String,
     phone: String,
-    avator: String,
+    avatarUrl: String,
     photos: [String],
     nationality: String,
     constellation: String,
@@ -86,9 +86,9 @@ var userDetailSchema = new mongoose.Schema(
     },
     collection: 'user_detail',
   },
-);
+)
 
-userDetailSchema.plugin(mongoosePaginate);
-const UserDetail = mongoose.model('UserDetail', userDetailSchema);
+userDetailSchema.plugin(mongoosePaginate)
+const UserDetail = mongoose.model('UserDetail', userDetailSchema)
 
-export { IUserDetail, UserDetail };
+export { IUserDetail, UserDetail }

@@ -18,19 +18,29 @@ export class FortuneService {
     return await ClientService.constellationMmatching(params)
   }
 
-  async constellationMmatchingComplex(openid: string): Promise<any> {
+  async constellationMmatchingComplex(
+    openid: string,
+    type = 'easy',
+  ): Promise<any> {
     let user = await UserDetail.findOne({ openid })
-    let model = {}
+    console.log('are you coming', user)
+    let model: any = {}
     let opposite
     if (user.gender === 1) {
-      opposite = UserDetail.findOne({
+      opposite = await UserDetail.findOne({
         gender: 2,
         'objectInfo.salary': { $exists: true },
       })
       model = {
-        salary: RulesService.generateSalaryScore(user.salary, opposite.salary),
-        height: RulesService.generateSalaryScore(user.height, opposite.height),
-        age: RulesService.generateSalaryScore(user.age, opposite.age),
+        salary: user.salary
+          ? RulesService.generateSalaryScore(user.salary, opposite.salary)
+          : null,
+        height: user.salary
+          ? RulesService.generateHeightScore(user.height, opposite.height)
+          : null,
+        age: user.salary
+          ? RulesService.generateAgeScore(user.age, opposite.age)
+          : null,
         star: await ClientService.constellationMmatching(
           `?me=${user.constellation}&he=${opposite.constellation}`,
         ),
@@ -41,14 +51,33 @@ export class FortuneService {
         'objectInfo.salary': { $exists: true },
       })
       model = {
-        salary: RulesService.generateSalaryScore(opposite.salary, user.salary),
-        height: RulesService.generateSalaryScore(opposite.height, user.height),
-        age: RulesService.generateSalaryScore(opposite.age, user.age),
+        salary: user.salary
+          ? RulesService.generateSalaryScore(opposite.salary, user.salary)
+          : null,
+        height: user.height
+          ? RulesService.generateHeightScore(opposite.height, user.height)
+          : null,
+        age: user.age
+          ? RulesService.generateAgeScore(opposite.age, user.age)
+          : null,
+        average: user.age
+          ? RulesService.generateAgeScore(opposite.age, user.age)
+          : null,
         star: await ClientService.constellationMmatching(
           `?me=${opposite.constellation}&he=${user.constellation}`,
         ),
       }
     }
+    model.me = {
+      openid: user.openid,
+      avatarUrl: user.avatarUrl || user.avatar,
+    }
+    model.opposite = {
+      openid: opposite.openid,
+      avatarUrl: opposite.avatarUrl || user.avatar,
+    }
+    model.average = Math.ceil((model.salary + model.height + model.age) / 3)
+    if (model.average === 0) model.average = 80
     return model
   }
 
