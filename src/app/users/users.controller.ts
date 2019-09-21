@@ -271,7 +271,8 @@ export class UsersController {
             "salary": "月薪:2万-5万", // 收入
             "height": "178cm以上", // 身高
             "age": "23-37岁", // 年龄
-        }
+        },
+  "finishRate": "95.24" // 完成度
 }
    }
 

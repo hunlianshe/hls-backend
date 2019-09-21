@@ -38,8 +38,42 @@ export class UsersService {
     )
   }
 
-  async getUserInfo(openid: string): Promise<IUserDetail> {
-    return await UserDetail.findOne({ openid })
+  async getUserInfo(openid: string): Promise<any> {
+    let user = await UserDetail.findOne({ openid })
+    let keyCount = 0
+    const keyArray = [
+      'openid',
+      'birth',
+      'education',
+      'gender',
+      'height',
+      'hasChild',
+      'haveHouse',
+      'isMarriage',
+      'jobGeneral',
+      'jobDetail',
+      'nickName',
+      'avatarUrl',
+      'salary',
+      'wantChild',
+      'workProvince',
+      'workCity',
+      'workRegion',
+      'photos',
+      'constellation',
+      'objectInfo',
+      'phone',
+    ]
+    for (var key in user) {
+      if (keyArray.indexOf(key) > -1 && user[key]) {
+        keyCount += 1.0
+      }
+    }
+    user.finishRate = ((keyCount / keyArray.length) * 100).toFixed(2)
+    return {
+      ...JSON.parse(JSON.stringify(user)),
+      finishRate: ((keyCount / keyArray.length) * 100).toFixed(2),
+    }
   }
 
   async like(me: string, openid: string): Promise<void> {
