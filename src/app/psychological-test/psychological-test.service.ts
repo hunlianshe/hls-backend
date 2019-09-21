@@ -25,7 +25,7 @@ export class PsychologicalTestService {
     body: any,
   ): Promise<{ title: string; feature: string }[]> {
     const res: any = filterCatOrDog(body)
-    // go on to deal with res ['美短', '拉布拉多', '牧羊', '波斯', '美短'. '牧羊']
+    console.log(res)
     const countName: string[] = ['美短', '波斯', '牧羊', '拉布拉多']
     const countRes: number[] = [0, 0, 0, 0]
     res.forEach(res => {
@@ -54,6 +54,28 @@ export class PsychologicalTestService {
     }
     const secondIndex = _.indexOf(countRes, maxValue, firstIndex + 1)
     if (secondIndex > -1) {
+      if (
+        countName[firstIndex] === '美短' ||
+        countName[firstIndex] === '波斯'
+      ) {
+        if (
+          countName[secondIndex] === '美短' ||
+          countName[secondIndex] === '波斯'
+        ) {
+          return finalResult
+        }
+      }
+      if (
+        countName[firstIndex] === '牧羊' ||
+        countName[firstIndex] === '拉布拉多'
+      ) {
+        if (
+          countName[secondIndex] === '牧羊' ||
+          countName[secondIndex] === '拉布拉多'
+        ) {
+          return finalResult
+        }
+      }
       finalResult.push(analyzeReport[countName[secondIndex]])
     }
     return finalResult

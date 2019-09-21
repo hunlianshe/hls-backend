@@ -123,6 +123,61 @@ export class PsychologicalTestController {
     return await this.psyService.findPsyTestById(params.id)
   }
 
+  /**
+  @apiGroup psychologicalTest
+  @apiVersion 0.1.0
+  @api {post} /psychological-test/generateCatOrDogResult 获取猫狗匹配
+ @apiParamExample {json} Request-Example:
+{
+	"id": "5d7e0c2fe07dad0a832248f7", // 题目的id
+	"inputAnswer": [{ // 用户的答案
+		"question": "你喜欢看哪种类型的电影？", //题目
+		"answer": "A" // 用户的选择
+	},
+	{
+		"question": "你觉得你的强项和优点是什么？",
+		"answer": "A"
+	},
+	{
+		"question": "你今天过得很糟糕，你准备睡觉之前如果让自己放松一下缓解压力？",
+		"answer": "A"
+	},
+	{
+		"question": "如果可以给自己换一个名字，你想换成什么样的名字？",
+		"answer": "A"
+	},
+	{
+		"question": "在社交场合，比如在一场派对中，你是什么样的？",
+		"answer": "A"
+	},
+	{
+		"question": "人固有一死，你希望最终你以什么样的方式死去？",
+		"answer": "A"
+	}
+	]
+}
+
+  @apiSuccessExample Success-Response:
+    HTTP/1.1 200 OK 
+
+{
+    "data": [
+        {
+            "title": "德国牧羊犬", // 具体品种
+            // 特征
+            "feature": "你是独立且忠诚的牧羊犬，表面高冷，面无表情，心里只有工作，实际上内心炙热，待人忠厚，对待感情更是非常认真和投入，不计较付出" 
+        }
+    ],
+    "code": 200,
+    "message": "success"
+}
+  @apiErrorExample Error-Response:
+      HTTP/1.1 200 
+  {
+  code:500,
+  msg:""
+  }  
+ */
   @Post('/generateCatOrDogResult')
   async generateCatOrDogResult(@Body() Body): Promise<any> {
     return await this.psyService.generateCatOrDogResult(Body)
