@@ -158,6 +158,7 @@ export class FortuneController {
             "openid": "oV2Js5Y-cIYQpxzjmyiVTZAGUpgw",
             "avatarUrl": "https://photo.zastatic.com/images/photo/467571/1870282366/960647145683513.png"
         },
+        "type": "complex",
         "average": 67
     },
     "code": 200,

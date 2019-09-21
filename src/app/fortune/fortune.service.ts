@@ -27,10 +27,12 @@ export class FortuneService {
     let model: any = {}
     let opposite
     if (user.gender === 1) {
-      opposite = await UserDetail.findOne({
+      opposite = await UserDetail.find({
+        salary: { $exists: true },
         gender: 2,
         'objectInfo.salary': { $exists: true },
       })
+      opposite = opposite[Math.ceil(Math.random() * opposite.length)]
       model = {
         salary: user.salary
           ? RulesService.generateSalaryScore(user.salary, opposite.salary)
@@ -46,10 +48,13 @@ export class FortuneService {
         ),
       }
     } else {
-      opposite = UserDetail.findOne({
+      opposite = UserDetail.find({
         gender: 1,
+        salary: { $exists: true },
         'objectInfo.salary': { $exists: true },
       })
+
+      opposite = opposite[Math.ceil(Math.random() * opposite.length)]
       model = {
         salary: user.salary
           ? RulesService.generateSalaryScore(opposite.salary, user.salary)
@@ -76,6 +81,7 @@ export class FortuneService {
       openid: opposite.openid,
       avatarUrl: opposite.avatarUrl || user.avatar,
     }
+    model.type = model.salary ? 'complex' : 'easy'
     model.average = Math.ceil((model.salary + model.height + model.age) / 3)
     if (model.average === 0) model.average = 80
     return model
