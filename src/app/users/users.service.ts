@@ -57,7 +57,7 @@ export class UsersService {
       likeEachOtherCount: 0,
     }
     const likeMe: [IUserDetail] = await UserDetail.find({ likes: openid })
-    res.likeEachOtherCount = likeMe.length || 0
+    res.likesMesCount = likeMe.length || 0
     const userSelf: IUserDetail = await UserDetail.findOne({ openid })
     res.melikesCount = userSelf.likes.length || 0
     likeMe.forEach((user: IUserDetail) => {
