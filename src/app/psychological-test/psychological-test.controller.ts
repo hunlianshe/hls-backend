@@ -164,6 +164,8 @@ export class PsychologicalTestController {
     "data": [
         {
             "title": "德国牧羊犬", // 具体品种
+            //图片链接
+            "imageUrl": "http://zukuan.oss-cn-shanghai.aliyuncs.com/tim/%E6%B3%A2%E6%96%AF%E7%8C%AB.jpg",
             // 特征
             "feature": "你是独立且忠诚的牧羊犬，表面高冷，面无表情，心里只有工作，实际上内心炙热，待人忠厚，对待感情更是非常认真和投入，不计较付出" 
         }

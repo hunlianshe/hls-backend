@@ -54,21 +54,29 @@ const answer = [
 const analyzeReport = {
   美短: {
     title: '美国短毛猫',
+    imageUrl:
+      'http://zukuan.oss-cn-shanghai.aliyuncs.com/tim/%E7%BE%8E%E7%9F%AD.jpg',
     feature:
       '你是活泼好动的美国短毛猫，有丰富的想象力，对世界充满了好奇，甜美又调皮，有时也会任性，人见人爱，让生活多姿多彩',
   },
   波斯: {
     title: '波斯猫',
+    imageUrl:
+      'http://zukuan.oss-cn-shanghai.aliyuncs.com/tim/%E6%B3%A2%E6%96%AF%E7%8C%AB.jpg',
     feature:
       '你是若即若离的波斯猫，自信，高贵，特立独行，有时冷漠，给人高高在上的感觉。对事物有独特的审美，对生活高标准高要求，对爱情也是如此',
   },
   牧羊: {
     title: '德国牧羊犬',
+    imageUrl:
+      'http://zukuan.oss-cn-shanghai.aliyuncs.com/tim/%E7%89%A7%E7%BE%8A%E7%8A%AC.jpg',
     feature:
       '你是独立且忠诚的牧羊犬，表面高冷，面无表情，心里只有工作，实际上内心炙热，待人忠厚，对待感情更是非常认真和投入，不计较付出',
   },
   拉布拉多: {
     title: '拉布拉多',
+    imageUrl:
+      'http://zukuan.oss-cn-shanghai.aliyuncs.com/tim/%E6%8B%89%E5%B8%83%E6%8B%89%E5%A4%9A.jpg',
     feature:
       '你是温顺的拉布拉多，非常暖心，对伴侣几乎言听计从，脾气很好，朋友很多，还很会照顾人，格外顾家',
   },
