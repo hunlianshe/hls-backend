@@ -5,6 +5,7 @@ import {
 } from '../../models/psychologicalTest'
 import { filterCatOrDog, analyzeReport } from '../../filters/filterAnswer'
 import * as _ from 'lodash'
+import { IPastLove } from 'src/types'
 
 @Injectable()
 export class PsychologicalTestService {
@@ -79,5 +80,21 @@ export class PsychologicalTestService {
       finalResult.push(analyzeReport[countName[secondIndex]])
     }
     return finalResult
+  }
+
+  async getPastLove(gender: number): Promise<IPastLove> {
+    let pastLoveRes = await PsychologicalTest.findOne({
+      type: '3',
+    }).lean()
+    if (!pastLoveRes) {
+      return {}
+    }
+    pastLoveRes = pastLoveRes.content.filter(elem => {
+      return elem.gender == gender
+    })
+    console.log(`${JSON.stringify(pastLoveRes)}`)
+    const length = pastLoveRes.length - 1
+    console.log(pastLoveRes.length)
+    return pastLoveRes[_.random(length)]
   }
 }

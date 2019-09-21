@@ -3,7 +3,7 @@ import * as mongoosePaginate from 'mongoose-paginate'
 import { Document } from 'mongoose'
 interface IPsychologicalTest extends Document {
   name: String
-  type: String
+  type: number
   content: [
     {
       question: String
@@ -39,7 +39,6 @@ var psychologicalTestSchema = new mongoose.Schema(
     ],
 
     //-------Audit field-----------------------
-
     //create date
     createdAt: { type: Date },
     //update

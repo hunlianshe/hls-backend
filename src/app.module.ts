@@ -23,5 +23,6 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(AuthMiddleware).forRoutes('users')
     consumer.apply(AuthMiddleware).forRoutes('fortune')
+    consumer.apply(AuthMiddleware).forRoutes('psychological-test')
   }
 }

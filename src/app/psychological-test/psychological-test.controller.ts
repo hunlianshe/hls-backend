@@ -1,11 +1,59 @@
-import { Controller, Get, Post, Param, Body } from '@nestjs/common'
+import { Controller, Get, Post, Param, Body, Req } from '@nestjs/common'
 import { PsychologicalTestService } from './psychological-test.service'
 import { IPsychologicalTest } from '../../models/psychologicalTest'
-import { request } from 'http'
+import { IPastLove } from 'src/types'
 
 @Controller('psychological-test')
 export class PsychologicalTestController {
   constructor(private readonly psyService: PsychologicalTestService) {}
+
+  /**
+  @apiGroup psychologicalTest
+  @apiVersion 0.1.0
+  @api {get} /psychological-test/getPastLove 获取前世情缘
+
+  @apiSuccessExample Success-Response:
+    HTTP/1.1 200 OK 
+
+{
+    "data": {
+        //性别
+        "gender": 1,
+        // 职业
+        "job": "渔夫",
+        // 寿命
+        "age": 56,
+        // 恋爱次数
+        "loveTimes": 1,
+        // 婚姻次数
+        "marryTimes": 1,
+        // 体贴指数
+        "considerStandard": 7,
+        // 异性指数
+        "hsexualStandard": 3,
+        // 温柔指数
+        "gentleStandard": 8,
+        // 家务指数
+        "hworkStandard": 7,
+        // 吵架指数
+        "quarrelStandard": 2,
+        // 婚恋情况
+        "marryState": "古时婚配由父母之命媒妁之言，爱上亲梅竹马后父母提了亲，与妻子的日子过得和谐美满，膝下儿孙满堂"
+    },
+    "code": 200,
+    "message": "success"
+}
+  @apiErrorExample Error-Response:
+      HTTP/1.1 200 
+  {
+  code:500,
+  msg:""
+  }  
+ */
+  @Get('/getPastLove')
+  async getPastLove(@Req() req: any): Promise<IPastLove> {
+    return await this.psyService.getPastLove(req.user.gender)
+  }
 
   /**
   @apiGroup psychologicalTest
