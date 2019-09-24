@@ -288,6 +288,14 @@ export class UsersController {
     @Req() req: any,
     @Param() params: any,
   ): Promise<IUserDetail> {
+    let validator = {
+      type: 'object',
+      properties: {
+        openid: { type: 'string' },
+      },
+      required: ['openid'],
+    }
+    AjvService.verify(req.params, validator)
     return await this.userService.getUserInfo(params.openid)
   }
 

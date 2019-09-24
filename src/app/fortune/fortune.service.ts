@@ -54,7 +54,7 @@ export class FortuneService {
         'objectInfo.salary': { $exists: true },
       })
 
-      opposite = opposite[Math.ceil(Math.random() * opposite.length)]
+      opposite = opposite[Math.ceil(Math.random() * opposite.length) - 1]
       model = {
         salary: user.salary
           ? RulesService.generateSalaryScore(opposite.salary, user.salary)
@@ -74,11 +74,17 @@ export class FortuneService {
       }
     }
     model.me = {
+      nickName: user.nickName,
       openid: user.openid,
+      gender: user.gender,
+      constellation: user.constellation,
       avatarUrl: user.avatarUrl || user.avatar,
     }
     model.opposite = {
+      nickName: opposite.nickName,
       openid: opposite.openid,
+      gender: opposite.gender,
+      constellation: opposite.constellation,
       avatarUrl: opposite.avatarUrl || user.avatar,
     }
     model.type = model.salary ? 'complex' : 'easy'
