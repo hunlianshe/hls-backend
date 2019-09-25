@@ -1,5 +1,14 @@
 import { UsersService } from './users.service'
-import { Controller, Get, Post, Body, Param, Req, Put } from '@nestjs/common'
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Req,
+  Put,
+  HttpException,
+} from '@nestjs/common'
 import { IUser } from '../../models/user'
 import { AjvService } from '../../lib/ajv.service'
 import { SecureService } from '../../lib/secure.service'
@@ -125,6 +134,59 @@ export class UsersController {
     await this.userService.register(user)
     return {
       token: SecureService.generateToken(user.openid),
+    }
+  }
+
+  /**
+  @apiGroup User
+  @apiVersion 0.1.0
+  @api {post} /users/adminlogin  后端用户登录
+ @apiParamExample {json} Request-Example:
+ {
+    "username":"admin",
+    "password":"1qaz@#EW",
+ }
+
+
+  @apiSuccessExample Success-Response:
+    HTTP/1.1 200 OK 
+{
+    "code": "200",
+    "data": {
+        "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTQzNjUyMDQ4fQ.NufQtcGh8QK4-eFuDUJVpIESWdgoIt121FQksZ48ip0"
+    }
+}
+
+  @apiErrorExample Error-Response:
+      HTTP/1.1 200 
+  {
+  code:500
+  msg:"Internal Error",
+  }
+    {
+  code:400
+  msg:"用户名或则密码错误"",
+  }
+ */
+
+  @Post('adminlogin')
+  async adminLogin(@Body() user: any): Promise<any> {
+    let validator = {
+      type: 'object',
+      properties: {
+        username: { type: 'string' },
+        password: { type: 'string' },
+      },
+      required: ['username', 'password'],
+    }
+    AjvService.verify(user, validator)
+    let systemUser = await this.userService.adminLogin(
+      user.username,
+      user.password,
+    )
+    if (!systemUser) throw new HttpException('用户名或则密码错误', 400)
+    return {
+      token: SecureService.generateToken(systemUser.openid),
     }
   }
 

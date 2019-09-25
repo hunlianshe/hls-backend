@@ -1,6 +1,7 @@
 import { Injectable, HttpException } from '@nestjs/common'
 import { User, IUser } from '../../models/user'
 import { UserDetail } from '../../models/user_detail'
+import { SystemUser, ISystemUser } from '../../models/systemUser'
 import { IUserDetail } from '../../models/user_detail'
 import { ClientService } from '../../lib/client.service'
 import { SmsService } from '../../lib/sms.service'
@@ -143,6 +144,10 @@ export class UsersService {
     if (!sms) throw new HttpException('验证码已过期,请重新发送', 400)
     await UserDetail.update({ openid }, { $set: { phone } })
     await Sms.remove({ phone, code })
+  }
+
+  async adminLogin(usernmae: string, password: string): Promise<ISystemUser> {
+    return await SystemUser.findOne({ usernmae, password })
   }
 
   async listUsers(id: string): Promise<IUserDetail[]> {

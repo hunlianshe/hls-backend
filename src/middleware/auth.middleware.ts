@@ -5,7 +5,11 @@ import { User, IUser } from '../models/user'
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
   async use(req: any, res: Response, next: Function) {
-    if (req.url.includes('openidfromwx') || req.url.includes('register'))
+    if (
+      req.url.includes('openidfromwx') ||
+      req.url.includes('register') ||
+      req.url.includes('adminlogin')
+    )
       return next()
     let token = req.headers.authorization
     if (!token || !token.includes('Bearer'))
