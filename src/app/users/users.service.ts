@@ -146,8 +146,8 @@ export class UsersService {
     await Sms.remove({ phone, code })
   }
 
-  async adminLogin(usernmae: string, password: string): Promise<ISystemUser> {
-    return await SystemUser.findOne({ usernmae, password })
+  async adminLogin(username: string, password: string): Promise<ISystemUser> {
+    return await SystemUser.findOne({ username, password })
   }
 
   async listUsers(id: string): Promise<IUserDetail[]> {

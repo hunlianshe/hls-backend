@@ -144,7 +144,7 @@ export class UsersController {
  @apiParamExample {json} Request-Example:
  {
     "username":"admin",
-    "password":"1qaz@#EW",
+    "password":"123abc",
  }
 
 
