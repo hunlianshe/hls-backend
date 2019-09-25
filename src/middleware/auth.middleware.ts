@@ -8,7 +8,8 @@ export class AuthMiddleware implements NestMiddleware {
     if (
       req.url.includes('openidfromwx') ||
       req.url.includes('register') ||
-      req.url.includes('adminlogin')
+      req.url.includes('adminlogin') ||
+      req.url.includes('adminuserlist')
     )
       return next()
     let token = req.headers.authorization
