@@ -6,7 +6,7 @@ import { HttpExceptionFilter } from './filters/http-exception.filter'
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
   const options = {
-    origin: '*',
+    origin: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     preflightContinue: false,
     optionsSuccessStatus: 204,
