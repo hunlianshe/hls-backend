@@ -162,6 +162,7 @@ export class UsersService {
     }
   }
   async adminuserlist(body): Promise<IUserDetail[]> {
+    if (body.nickName) body.nickName = new RegExp(body.nickName, 'gi')
     return await UserDetail.find(body)
   }
 }
