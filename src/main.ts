@@ -4,7 +4,7 @@ import { TransformInterceptor } from './interceptor/transform.interceptor'
 import { HttpExceptionFilter } from './filters/http-exception.filter'
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule)
+  const app = await NestFactory.create(AppModule, { cors: true })
   app.useGlobalInterceptors(new TransformInterceptor())
   app.useGlobalFilters(new HttpExceptionFilter())
   await app.listen(8009)

@@ -7,6 +7,7 @@ import { AuthMiddleware } from './middleware/auth.middleware'
 import { FortuneModule } from './app/fortune/fortune.module'
 import { PsychologicalTestModule } from './app/psychological-test/psychological-test.module'
 import { ConstellationStoryModule } from './app/constellation-story/constellation-story.module'
+import { NestFactory } from '@nestjs/core'
 
 @Module({
   imports: [
