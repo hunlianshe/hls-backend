@@ -48,7 +48,7 @@ export class FortuneService {
         ),
       }
     } else {
-      opposite = UserDetail.find({
+      opposite = await UserDetail.find({
         gender: 1,
         salary: { $exists: true },
         'objectInfo.salary': { $exists: true },
