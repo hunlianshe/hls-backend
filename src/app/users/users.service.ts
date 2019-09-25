@@ -161,4 +161,7 @@ export class UsersService {
         .limit(10)
     }
   }
+  async adminuserlist(body): Promise<IUserDetail[]> {
+    return await UserDetail.find({ body })
+  }
 }
