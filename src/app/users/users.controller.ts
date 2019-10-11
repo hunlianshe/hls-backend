@@ -483,7 +483,10 @@ msg:""
 */
   @Post('listLikes')
   async listLikes(@Body() body, @Req() req: any): Promise<IUserDetail[]> {
-    return await this.userService.listLikes(body.type, req.user.openid)
+    return await this.userService.listLikes(
+      body.type,
+      req.user.openid || body.openid,
+    )
   }
 
   /**
