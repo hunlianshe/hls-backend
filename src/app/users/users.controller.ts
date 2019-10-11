@@ -420,6 +420,7 @@ export class UsersController {
 @apiParamExample {json} Request-Example:
 {
 "type": "meLike" // 1.likeMe 2.likeEachOther 3.meLike
+"openid": "13ecdcsd" 
 }
 
 @apiSuccessExample Success-Response:
@@ -485,7 +486,7 @@ msg:""
   async listLikes(@Body() body, @Req() req: any): Promise<IUserDetail[]> {
     return await this.userService.listLikes(
       body.type,
-      req.user.openid || body.openid,
+      body.openid || req.user.openid,
     )
   }
 
