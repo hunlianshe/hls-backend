@@ -11,6 +11,7 @@ interface IUserDetail extends Document {
   height: String
   salary: String
   workProvince: String
+  weChatId: String
   workCity: String
   workRegion: String
   education: String
@@ -62,6 +63,7 @@ var userDetailSchema = new mongoose.Schema(
     avatarUrl: String,
     photos: [String],
     nationality: String,
+    weChatId: String,
     constellation: String,
     isRealAvator: String,
     likes: [String],
