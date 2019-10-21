@@ -52,12 +52,14 @@ export class ClientService {
   }
 
   static async getHoroscope(params): Promise<any> {
-    let url = `${config.HOROSCOPE.HOST}/lifeservice/constellation/GetAll?${params}&key=${config.HOROSCOPE.KEY}`
+    let url = `${config.HOROSCOPE.HOST}&${params}&key=${config.HOROSCOPE.KEY}`
     if (map.get(url + moment().format('YYYYMMDD')))
       return map.get(url + moment().format('YYYYMMDD'))
+    console.log('url111', url)
     let result = JSON.parse(await request(url))
-    map.set(url + moment().format('YYYYMMDD'), result.result)
-    return result.result
+    console.log('result', result)
+    map.set(url + moment().format('YYYYMMDD'), result)
+    return result
   }
 
   static async constellationMmatching(params): Promise<any> {
