@@ -30,6 +30,7 @@ export class ClientService {
       '&js_code=' +
       code
     '&grant_type=authorization_code'
+    console.log('url', url)
     let result: OpenidObject = JSON.parse(await request(url))
     if (result.errcode)
       throw new HttpException(
