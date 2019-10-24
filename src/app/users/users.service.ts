@@ -150,13 +150,15 @@ export class UsersService {
     return await SystemUser.findOne({ username, password })
   }
 
-  async listUsers(id: string): Promise<IUserDetail[]> {
+  async listUsers(id: string, gender: number): Promise<IUserDetail[]> {
     if (id === '') {
-      return await UserDetail.find({})
+      return await UserDetail.find({ gender: { $ne: gender } })
         .sort({ _id: -1 })
         .limit(10)
     } else {
-      return await UserDetail.find({ _id: { $lt: ObjectId(id) } })
+      return await UserDetail.find({
+        _id: { $lt: ObjectId(id), gender: { $ne: gender } },
+      })
         .sort({ _id: -1 })
         .limit(10)
     }

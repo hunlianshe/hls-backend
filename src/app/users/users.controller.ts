@@ -560,8 +560,8 @@ msg:""
 }  
 */
   @Post('listUsers')
-  async listUsers(@Body() body): Promise<any> {
-    return await this.userService.listUsers(body.objectId)
+  async listUsers(@Body() body, @Req() req): Promise<any> {
+    return await this.userService.listUsers(body.objectId, req.user.gender)
   }
 
   /**
