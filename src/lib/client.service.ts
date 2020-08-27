@@ -21,6 +21,9 @@ export interface WxAccessToken {
 @Injectable()
 export class ClientService {
   static async getOpenid(code: string): Promise<OpenidObject> {
+    console.log('code', code)
+    console.log('config.MINI.appId ', config.MINI.appId)
+    console.log('config.MINI.appSecret ', config.MINI.appSecret)
     let url =
       config.MINI.host +
       '/sns/jscode2session?appid=' +
@@ -56,9 +59,8 @@ export class ClientService {
     let url = `${config.HOROSCOPE.HOST}&${params}&key=${config.HOROSCOPE.KEY}`
     if (map.get(url + moment().format('YYYYMMDD')))
       return map.get(url + moment().format('YYYYMMDD'))
-    console.log('url111', url)
+    const haha = await request(url)
     let result = JSON.parse(await request(url))
-    console.log('result', result)
     map.set(url + moment().format('YYYYMMDD'), result)
     return result
   }

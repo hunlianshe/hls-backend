@@ -109,7 +109,7 @@ export class PsychologicalTestController {
   }  
  */
 
-  @Get('list')
+  @Get('plist')
   async getPsyTest(): Promise<IPsychologicalTest[]> {
     return await this.psyService.findPsyTest()
   }

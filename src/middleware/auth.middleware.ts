@@ -9,9 +9,11 @@ export class AuthMiddleware implements NestMiddleware {
       req.url.includes('openidfromwx') ||
       req.url.includes('register') ||
       req.url.includes('adminlogin') ||
+      req.url.includes('plist') ||
       req.url.includes('adminuserlist')
     )
       return next()
+    console.log('psychological-test', req.url)
     let token = req.headers.authorization
     if (!token || !token.includes('Bearer'))
       throw new HttpException('Authentication failed', 401)
