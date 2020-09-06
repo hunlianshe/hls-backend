@@ -8,6 +8,10 @@ import { FortuneModule } from './app/fortune/fortune.module'
 import { PsychologicalTestModule } from './app/psychological-test/psychological-test.module'
 import { ConstellationStoryModule } from './app/constellation-story/constellation-story.module'
 import { NestFactory } from '@nestjs/core'
+import { GroupService } from './app/group/group.service'
+import { GroupController } from './app/group/group.controller'
+import { GroupModule } from './app/group/group.module'
+import { GroupModule } from './app/group/group.module'
 
 @Module({
   imports: [
@@ -16,9 +20,10 @@ import { NestFactory } from '@nestjs/core'
     FortuneModule,
     PsychologicalTestModule,
     ConstellationStoryModule,
+    GroupModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, GroupController],
+  providers: [AppService, GroupService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
