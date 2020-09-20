@@ -212,7 +212,7 @@ export class GroupController {
   /**
   @apiGroup Group
   @apiVersion 0.1.0
-  @api {get} /group//message/list/:cid?pageSize=1&pageToken=  更新消息为已读
+  @api {get} /group//message/list/:cid?pageSize=1&pageToken=  查询单个聊天消息
 
   @apiSuccessExample Success-Response:
     HTTP/1.1 200 OK 
