@@ -183,7 +183,7 @@ export class GroupController {
   /**
   @apiGroup Group
   @apiVersion 0.1.0
-  @api {get} /group/message/read-all/:cid  更新消息为已读
+  @api {put} /group/message/read-all/:cid  更新消息为已读
 
   @apiSuccessExample Success-Response:
     HTTP/1.1 200 OK 
