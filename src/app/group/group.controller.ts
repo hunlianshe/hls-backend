@@ -78,14 +78,31 @@ export class GroupController {
             ],
             "createId": "oHgB55AlhKqR7azr85YYBwfIE9EQ",
             "createdAt": "2020-09-20T04:52:53.115Z",
-            "updatedAt": "2020-09-20T05:04:56.752Z",
-            "unreadCount": 5 //未读消息
+            "updatedAt": "2020-09-20T07:57:43.815Z",
+            "lastMessage": {
+                "cid": "5f66e025bb97350949c52a97",
+                "type": 1,
+                "msg": "hello lisa",
+                "status": [
+                    {
+                        "openid": "oHgB55LJ1wGo2QqEYxgo8tLMxL4A",
+                        "msgUnread": true
+                    },
+                    {
+                        "openid": "oHgB55AlhKqR7azr85YYBwfIE9EQ",
+                        "msgUnread": true
+                    }
+                ],
+                "from": "oV2Js5THL6EdzDahAxCTxFoXyjHk",
+                "fromName": "刘祖宽",
+                "fromAvatarUrl": "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erbAfZ10K9richIBTz7kDsA9lUsVyzicShXgxw9zeMfekOUk6s7JGOVtCza5veuxvibsJyOOgVICwpPQ/132"
+            },
+            "unreadCount": 20
         }
     ],
     "code": 200,
     "message": "success"
 }
-
   @apiErrorExample Error-Response:
       HTTP/1.1 200 
   {

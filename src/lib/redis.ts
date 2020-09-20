@@ -1,6 +1,8 @@
 import { now } from 'moment'
+import { User } from '../models/user'
 import { Group } from '../models/group'
 import { Message } from '../models/message'
+import { SecureService } from './secure.service'
 
 const redis = require('redis')
 
@@ -25,7 +27,17 @@ const consumberMessage = async message => {
     message = JSON.parse(message)
     const messageSchema = new Message(message)
     await messageSchema.save()
-    await Group.updateOne({ _id: message.cid }, { $set: { updatedAt: now() } })
+
+    //把最后一条消息更新到group上面
+    const user = await User.findOne({ openid: message.from })
+    message.fromName = user.nickName
+    message.fromAvatarUrl = user.avatarUrl
+    console.log({ lastMessage: message, updatedAt: now() })
+
+    await Group.updateOne(
+      { _id: message.cid },
+      { $set: { lastMessage: message, updatedAt: now() } },
+    )
   } catch (error) {
     console.error('saveMessageError', error)
   }

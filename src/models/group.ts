@@ -5,6 +5,7 @@ export interface IGroup extends Document {
   cid?: String
   userIds?: Array<String>
   createId: String
+  lastMessage?: Object
   //-------Audit field-----------------------
   //create date
   createdAt: Date
@@ -17,6 +18,7 @@ var groupSchema = new mongoose.Schema(
     cid: { type: String },
     createId: { type: String },
     userIds: { type: Array },
+    lastMessage: { type: Object },
     //-------Audit field-----------------------
 
     //create date
