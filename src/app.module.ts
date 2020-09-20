@@ -11,7 +11,6 @@ import { NestFactory } from '@nestjs/core'
 import { GroupService } from './app/group/group.service'
 import { GroupController } from './app/group/group.controller'
 import { GroupModule } from './app/group/group.module'
-import { GroupModule } from './app/group/group.module'
 
 @Module({
   imports: [
@@ -29,6 +28,7 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(AuthMiddleware).forRoutes('users')
     consumer.apply(AuthMiddleware).forRoutes('fortune')
+    consumer.apply(AuthMiddleware).forRoutes('group')
     consumer.apply(AuthMiddleware).forRoutes('psychological-test')
   }
 }

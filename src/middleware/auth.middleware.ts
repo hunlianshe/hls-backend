@@ -26,6 +26,7 @@ export class AuthMiddleware implements NestMiddleware {
       throw new HttpException('Authentication failed', 401)
     }
     let user = await User.findOne({ openid: tokenMessage.openid })
+    console.log('user', user)
     req.user = user
     await next()
   }

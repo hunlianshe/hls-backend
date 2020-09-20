@@ -4,6 +4,7 @@ import { Document } from 'mongoose'
 export interface IGroup extends Document {
   cid?: String
   userIds?: Array<String>
+  createId: String
   //-------Audit field-----------------------
   //create date
   createdAt: Date
@@ -14,6 +15,7 @@ var groupSchema = new mongoose.Schema(
   {
     //user email
     cid: { type: String },
+    createId: { type: String },
     userIds: { type: Array },
     //-------Audit field-----------------------
 
@@ -26,7 +28,7 @@ var groupSchema = new mongoose.Schema(
     usePushEach: true,
     versionKey: false,
     timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
-    collection: 'group',
+    collection: 'groups',
   },
 )
 
