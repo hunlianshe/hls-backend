@@ -63,6 +63,67 @@ export class GroupController {
   /**
   @apiGroup Group
   @apiVersion 0.1.0
+  @api {get} /group/get-group-by-id/:id 查询单个聊天详细信息
+ @apiParamExample {json} Request-Example:
+{
+	"userIds": ["18818216454"]
+}
+
+  @apiSuccessExample Success-Response:
+    HTTP/1.1 200 OK 
+{
+    "data": {
+        "userIds": [
+            "oHgB55LJ1wGo2QqEYxgo8tLMxL4A",
+            "oHgB55AlhKqR7azr85YYBwfIE9EQ"
+        ],
+        "_id": "5f66e025bb97350949c52a97",
+        "createId": "oHgB55AlhKqR7azr85YYBwfIE9EQ",
+        "createdAt": "2020-09-20T04:52:53.115Z",
+        "updatedAt": "2020-09-20T07:57:43.815Z",
+        "lastMessage": {
+            "cid": "5f66e025bb97350949c52a97",
+            "type": 1,
+            "msg": "hello lisa",
+            "status": [
+                {
+                    "openid": "oHgB55LJ1wGo2QqEYxgo8tLMxL4A",
+                    "msgUnread": true
+                },
+                {
+                    "openid": "oHgB55AlhKqR7azr85YYBwfIE9EQ",
+                    "msgUnread": true
+                }
+            ],
+            "from": "oV2Js5THL6EdzDahAxCTxFoXyjHk",
+            "fromName": "刘祖宽",
+            "fromAvatarUrl": "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erbAfZ10K9richIBTz7kDsA9lUsVyzicShXgxw9zeMfekOUk6s7JGOVtCza5veuxvibsJyOOgVICwpPQ/132"
+        }
+    },
+    "code": 200,
+    "message": "success"
+}
+
+  @apiErrorExample Error-Response:
+      HTTP/1.1 200 
+  {
+  code:500
+  msg:"Internal Error",
+  }
+    {
+  code:400
+  msg:"用户名或则密码错误"",
+  }
+ */
+
+  @Get('/get-group-by-id/:id')
+  async getGroup(@Req() req: any): Promise<any> {
+    return await this.groupService.getGroupById(req.user.openid, req.params.id)
+  }
+
+  /**
+  @apiGroup Group
+  @apiVersion 0.1.0
   @api {get} /group/list  查询我参与的聊天
 
   @apiSuccessExample Success-Response:

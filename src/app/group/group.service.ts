@@ -17,6 +17,15 @@ export class GroupService {
     return await Group.findOne({ userIds: userIds[0] })
   }
 
+  async getGroupById(openid: string, _id: string) {
+    const group = await Group.findOne({ _id })
+    group.unreadCount = await this.getConversationUnreadMessageCount(
+      group._id,
+      openid,
+    )
+    return group
+  }
+
   /**
    * @desc 查询我参与的所有聊天
    * @param openid 用户id
