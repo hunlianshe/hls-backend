@@ -1,18 +1,18 @@
-import * as mongoose from 'mongoose';
-import * as mongoosePaginate from 'mongoose-paginate';
-import { Document } from 'mongoose';
+import * as mongoose from 'mongoose'
+import * as mongoosePaginate from 'mongoose-paginate'
+import { Document } from 'mongoose'
 
 interface IVipInfo extends Document {
-  name: String;
-  yearPrice: Number;
-  seasonPrice: Number;
-  monthPrice: Number;
-  rightsInfo: [String];
+  name: String
+  yearPrice: Number
+  seasonPrice: Number
+  monthPrice: Number
+  rightsInfo: [String]
   //-------Audit field-----------------------
   //create date
-  createdAt: Date;
+  createdAt: Date
   //update
-  updatedAt: Date;
+  updatedAt: Date
 }
 
 var vipInfoSchema = new mongoose.Schema(
@@ -39,9 +39,9 @@ var vipInfoSchema = new mongoose.Schema(
     },
     collection: 'vip_info',
   },
-);
+)
 
-vipInfoSchema.plugin(mongoosePaginate);
-const VipInfo = mongoose.model('vipInfo', vipInfoSchema);
+vipInfoSchema.plugin(mongoosePaginate)
+const VipInfo = mongoose.model('vipInfo', vipInfoSchema)
 
-export { IVipInfo, VipInfo };
+export { IVipInfo, VipInfo }

@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Param, Body, Req } from '@nestjs/common';
-import { OrderPayService } from './order-pay.service';
-import { IOrder } from 'src/models/order';
-import { AjvService } from '../../lib/ajv.service';
+import { Controller, Get, Post, Param, Body, Req } from '@nestjs/common'
+import { OrderPayService } from './order-pay.service'
+import { IOrder } from 'src/models/order'
+import { AjvService } from '../../lib/ajv.service'
 
 @Controller('orderPay')
 export class OrderPayController {
@@ -9,7 +9,7 @@ export class OrderPayController {
 
   @Get('vipInfo')
   async getVipInfo(): Promise<any> {
-    return await this.orderPayService.listVipInfo();
+    return await this.orderPayService.listVipInfo()
   }
 
   /*
@@ -27,10 +27,10 @@ export class OrderPayController {
         vipType: { type: 'String', enum: ['bronze', 'platinum'] },
         payMethod: { type: 'String', enum: ['coin', 'wechat'] },
       },
-    };
-    AjvService.verify(body, validator);
-    const user = req.user;
-    return await this.orderPayService.payVip(user, body);
+    }
+    AjvService.verify(body, validator)
+    const user = req.user
+    return await this.orderPayService.payVip(user, body)
   }
 
   /*
@@ -45,10 +45,10 @@ export class OrderPayController {
         vipType: { type: 'String', enum: ['bronze', 'platinum'] },
         payMethod: { type: 'String', enum: ['coin', 'wechat'] },
       },
-    };
-    AjvService.verify(body, validator);
-    const user = req.user;
-    return await this.orderPayService.payVip(user, body);
+    }
+    AjvService.verify(body, validator)
+    const user = req.user
+    return await this.orderPayService.payVip(user, body)
   }
 
   /*
@@ -63,8 +63,8 @@ export class OrderPayController {
         money: { type: 'number' },
       },
       required: ['money'],
-    };
-    AjvService.verify(body, validator);
-    return await this.orderPayService.recharge(req.user, body);
+    }
+    AjvService.verify(body, validator)
+    return await this.orderPayService.recharge(req.user, body)
   }
 }

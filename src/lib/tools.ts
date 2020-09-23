@@ -1,16 +1,16 @@
-import * as moment from 'moment';
+import * as moment from 'moment'
 
 function getcharsetRandom() {
-  let random = '';
-  let i = 0;
+  let random = ''
+  let i = 0
   while (i < 6) {
-    random += Math.floor(Math.random() * 10);
-    i++;
+    random += Math.floor(Math.random() * 10)
+    i++
   }
-  return random;
+  return random
 }
 
 export const generateOrderNum = (): string => {
-  let orderNum = `ax-${moment().format('YYYYYMMDD')}${getcharsetRandom()}`;
-  return orderNum;
-};
+  let orderNum = `ax-${moment().format('YYYYYMMDD')}${getcharsetRandom()}`
+  return orderNum
+}
