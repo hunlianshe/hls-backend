@@ -9,6 +9,7 @@ import { Sms } from '../../models/sms'
 import * as moment from 'moment'
 import { ILikeType } from '../../types/index'
 import { ObjectId } from 'mongodb'
+import * as _ from 'lodash'
 
 @Injectable()
 export class UsersService {
@@ -71,10 +72,13 @@ export class UsersService {
       }
     }
     user.finishRate = ((keyCount / keyArray.length) * 100).toFixed(2)
-    return {
-      ...JSON.parse(JSON.stringify(user)),
-      finishRate: ((keyCount / keyArray.length) * 100).toFixed(2),
-    }
+    return _.omit(
+      {
+        ...JSON.parse(JSON.stringify(user)),
+        finishRate: ((keyCount / keyArray.length) * 100).toFixed(2),
+      },
+      ['weChatId'],
+    )
   }
 
   async like(me: string, openid: string): Promise<void> {
