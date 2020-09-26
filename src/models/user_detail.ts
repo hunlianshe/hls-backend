@@ -33,9 +33,6 @@ interface IUserDetail extends Document {
     height: String
     age: String
   }
-  coin: Number
-  vipType: String
-  vipExpireAt: Date
   //-------Audit field-----------------------
   //create date
   createdAt: Date
@@ -75,9 +72,6 @@ var userDetailSchema = new mongoose.Schema(
       height: String,
       age: String,
     },
-    coin: Number,
-    vipType: String,
-    vipExpireAt: Date,
     //-------Audit field-----------------------
 
     //create date

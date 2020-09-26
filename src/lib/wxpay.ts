@@ -4,6 +4,8 @@ import * as config from 'config'
 import axios from 'axios'
 import { Method } from 'axios'
 import * as bluebird from 'bluebird'
+import { Order } from '../models/order'
+import { HttpException } from '@nestjs/common'
 const xmlreader = require('xmlreader')
 const xmlreaderAsync = bluebird.promisifyAll(xmlreader)
 
@@ -76,7 +78,7 @@ export default class WxPay {
       const body = wxResponse.data
       const response = await xmlreaderAsync.readAsync(body.toString('utf-8'))
       if (!response.xml.prepay_id) {
-        throw new Error(response.xml.return_msg.text())
+        throw new HttpException(response.xml.return_msg.text(), 400)
       }
       console.log('长度===', response.xml.prepay_id.text().length)
       var prepay_id = response.xml.prepay_id.text()
@@ -95,15 +97,11 @@ export default class WxPay {
         paySign: minisign,
       }
     } else {
-      throw '支付失败'
+      throw new HttpException('支付失败', 400)
     }
   }
 
-  async checkOrderStatus(
-    user: any,
-    params: { orderId: number; userId: number },
-    orderInfo,
-  ) {
+  async checkOrderStatus(user: any, orderInfo) {
     // const outTradeNo = 'hg020200105787142';
     const nonceStr = WxPay.createNonceStr()
     // const searchOptions = {
@@ -129,52 +127,10 @@ export default class WxPay {
       if (wxOrderCode !== 'SUCCESS' || parseResult.trade_state !== 'SUCCESS') {
         return 'FAIL'
       }
-
-      // if (orderInfo.status === 1) {
-      //   // pay success
-      //   await models.Order.update(
-      //     {
-      //       status: 2,
-      //     },
-      //     {
-      //       where: {
-      //         id: params.orderId,
-      //         user_id: params.userId,
-      //       },
-      //     },
-      //   );
-      // }
       return wxOrderCode
     } catch (error) {
       console.log(`search order error========`, error)
-    }
-  }
-
-  static async wxPayBack(body: any) {
-    try {
-      let orderInfo: any = await models.Order.findOne({
-        where: {
-          orderNum: body.out_trade_no,
-        },
-      })
-      if (
-        orderInfo &&
-        body.result_code === 'SUCCESS' &&
-        body.return_code === 'SUCCESS'
-      ) {
-        await models.Order.update(
-          {
-            status: 2,
-          },
-          {
-            where: {
-              orderNum: body.out_trade_no,
-            },
-          },
-        )
-      }
-    } catch (error) {
-      console.error(`=======payback error:`, error)
+      throw new HttpException(error, 400)
     }
   }
 
