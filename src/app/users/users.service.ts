@@ -158,14 +158,12 @@ export class UsersService {
     if (id === '') {
       return await UserDetail.find({
         gender: { $ne: gender },
-        workCity: { $exists: true },
       })
         .sort({ _id: -1 })
         .limit(10)
     } else {
       return await UserDetail.find({
         _id: { $lt: ObjectId(id) },
-        workCity: { $exists: true },
         gender: { $ne: gender },
       })
         .sort({ _id: -1 })
