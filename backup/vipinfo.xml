@@ -1,0 +1,24 @@
+{
+    "name": "normal",
+    "rightsInfo": ['星座运势', '心理测试', '星座配对', '3次', '20人', '3次'],
+    "createdAt": new Date(),
+    "updatedAt": new Date()
+}
+{
+    "name": "bronze",
+    "yearPrice": 120,
+    "seasonPrice": 30,
+    "monthPrice": 10,
+    "rightsInfo": ['星座运势', '心理测试', '星座配对', '无限次', '无限次', '20次', '谁喜欢我', '相互喜欢'],
+    "createdAt": new Date(),
+    "updatedAt": new Date()
+}
+{
+    "name": "platinum",
+    "yearPrice": 240,
+    "seasonPrice": 60,
+    "monthPrice": 20,
+    "rightsInfo": ['星座运势', '心理测试', '星座配对', '无限次', '无限次', '无限次', '谁喜欢我', '相互喜欢'],
+    "createdAt": new Date(),
+    "updatedAt": new Date()
+}

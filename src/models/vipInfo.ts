@@ -42,6 +42,6 @@ var vipInfoSchema = new mongoose.Schema(
 )
 
 vipInfoSchema.plugin(mongoosePaginate)
-const VipInfo = mongoose.model('vipInfo', vipInfoSchema)
+const VipInfo = mongoose.model('VipInfo', vipInfoSchema)
 
 export { IVipInfo, VipInfo }

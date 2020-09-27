@@ -95,6 +95,7 @@ export default class WxPay {
         timeStamp,
         package: 'Sign=WXPay',
         paySign: minisign,
+        orderNum: orderDetails.orderNum,
       }
     } else {
       throw new HttpException('支付失败', 400)

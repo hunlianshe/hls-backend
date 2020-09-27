@@ -5,7 +5,7 @@ import { generateOrderNum } from '../../lib/tools'
 import WxPay from '../../lib/wxpay'
 import * as moment from 'moment'
 import { create, all } from 'mathjs'
-import { User } from 'src/models/user'
+import { User } from '../../models/user'
 
 enum Period {
   YEAR = 'year',
@@ -62,17 +62,19 @@ export class OrderPayService {
       }
     }
     if (user.vipType === ProductType.BRONZE) {
-      const vipInfo = vipList.filter(vi => vi.vipType === ProductType.PLATINUM)
-      const days = moment(user.expireAt).diff(moment(), 'day')
+      const vipInfo = vipList.filter(vi => vi.name === ProductType.PLATINUM)[0]
+      const days = moment(user.vipExpireAt).diff(moment(), 'day')
       return {
         user,
         vipList,
         upgradeInfo: {
           left: days,
-          pricePerDay: this.mathInstance.evaluate(`${vipInfo.yearPrice} / 365`),
-          totalPrice: this.mathInstance.evaluate(
+          pricePerDay: `${this.mathInstance.evaluate(
+            `${vipInfo.yearPrice} / 365`,
+          )}`,
+          totalPrice: `${this.mathInstance.evaluate(
             `${vipInfo.yearPrice} / 365 * ${days}`,
-          ),
+          )}`,
         },
       }
     }
@@ -80,7 +82,7 @@ export class OrderPayService {
 
   async checkOrderStatus(user: any, params: any): Promise<any> {
     const orderInfo = await Order.findOne({
-      _id: params.id,
+      orderNum: params.orderNu,
     })
     if (!orderInfo) {
       throw new HttpException('订单不存在', 400)
@@ -100,7 +102,7 @@ export class OrderPayService {
         },
       )
       // update user infp
-      const userInfo = await this.prepareUserVipInfoAfterPay(user, orderInfo)
+      const userInfo = this.prepareUserVipInfoAfterPay(user, orderInfo)
       await User.updateOne(
         { openid: user.openid },
         {
@@ -165,8 +167,8 @@ export class OrderPayService {
     const vipInfo = await VipInfo.findOne({
       name: ProductType.PLATINUM,
     })
-    const days = moment().diff(user.expireAt, 'day')
-    orderInfo.productInfo.totalPrice = this.mathInstance.evaluate(
+    const days = moment().diff(user.vipExpireAt, 'day')
+    orderInfo.totalPrice = this.mathInstance.evaluate(
       `${vipInfo.yearPrice} / 365 * ${days}`,
     )
     orderInfo.productInfo.payMethod = params.payMethod
@@ -190,13 +192,13 @@ export class OrderPayService {
     }
     switch (params.period) {
       case Period.MONTH:
-        orderInfo.productInfo.totalPrice = vipInfo.monthPrice
+        orderInfo.totalPrice = vipInfo.monthPrice
         break
       case Period.SEASON:
-        orderInfo.productInfo.totalPrice = vipInfo.seasonPrice
+        orderInfo.totalPrice = vipInfo.seasonPrice
         break
       case Period.YEAR:
-        orderInfo.productInfo.totalPrice = vipInfo.yearPrice
+        orderInfo.totalPrice = vipInfo.yearPrice
         break
       default:
         break
@@ -220,13 +222,13 @@ export class OrderPayService {
     }
     switch (params.period) {
       case Period.MONTH:
-        orderInfo.productInfo.totalPrice = vipInfo.monthPrice
+        orderInfo.totalPrice = vipInfo.monthPrice
         break
       case Period.SEASON:
-        orderInfo.productInfo.totalPrice = vipInfo.seasonPrice
+        orderInfo.totalPrice = vipInfo.seasonPrice
         break
       case Period.YEAR:
-        orderInfo.productInfo.totalPrice = vipInfo.yearPrice
+        orderInfo.totalPrice = vipInfo.yearPrice
         break
       default:
         break
@@ -238,7 +240,7 @@ export class OrderPayService {
   }
 
   async payWithCoin(user: any, orderInfo: any): Promise<any> {
-    if (user.coin < orderInfo.totalPrice) {
+    if (!user.coin || user.coin < orderInfo.totalPrice) {
       throw new HttpException('余额不足', 400)
     }
 
@@ -268,23 +270,30 @@ export class OrderPayService {
     )
   }
 
-  async prepareUserVipInfoAfterPay(user: any, orderInfo: any): Promise<any> {
+  prepareUserVipInfoAfterPay(user: any, orderInfo: any): any {
     const { payType, productType, period } = orderInfo.productInfo
     const userInfo: any = {}
-    switch (payType) {
-      case PayType.JOIN:
-        userInfo.expireAt = this.caculateExpireAt(period)
-        userInfo.vipType = productType
-        break
-      case PayType.RENEW:
-        userInfo.expireAt = this.caculateExpireAt(period, user.expireAt)
-        userInfo.vipType = productType
-      case PayType.UPGRADE:
-        userInfo.expireAt = user.expireAt
-        userInfo.vipType = productType
-      default:
-        break
+    if (orderInfo.productType === ProductType.COIN) {
+      userInfo.coin = `${this.mathInstance.evaluate(
+        `${userInfo.coin || 0} + ${orderInfo.totalPrice}`,
+      )}`
+    } else {
+      switch (payType) {
+        case PayType.JOIN:
+          userInfo.vipExpireAt = this.caculateExpireAt(period)
+          userInfo.vipType = productType
+          break
+        case PayType.RENEW:
+          userInfo.vipExpireAt = this.caculateExpireAt(period, user.vipExpireAt)
+          userInfo.vipType = productType
+        case PayType.UPGRADE:
+          userInfo.vipExpireAt = user.vipExpireAt
+          userInfo.vipType = productType
+        default:
+          break
+      }
     }
+
     return userInfo
   }
 
@@ -292,7 +301,9 @@ export class OrderPayService {
     if (period === 'season') {
       return time ? moment(time).add(3, 'month') : moment().add(3, 'month')
     } else {
-      return time ? moment(time).add(1, period) : moment().add(1, period)
+      return time
+        ? moment(time).add(1, period as any)
+        : moment().add(1, period as any)
     }
   }
 
@@ -314,7 +325,7 @@ export class OrderPayService {
         productType: ProductType.COIN,
         payMethod: PayMethod.WECHAT,
       },
-      ...params,
+      totalPrice: params.money,
     })
     return await this.wxService.payOrder(user, orderInfo)
   }
