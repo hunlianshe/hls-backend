@@ -5,16 +5,12 @@ import { Group } from '../../models/group'
 @Injectable()
 export class GroupService {
   async createGroup(userIds: Array<string>, createId: string) {
-    const group = await Group.findOne({ userIds: userIds[0] })
+    const group = await Group.findOne({ userIds: { $all: userIds } })
     if (group) {
       return group
     }
-    await Group.update(
-      { userIds: userIds[0] },
-      { $set: { userIds }, createId },
-      { new: true, upsert: true },
-    )
-    return await Group.findOne({ userIds: userIds[0] })
+    let groupSchema = new Group({ createId, userIds })
+    return await groupSchema.save()
   }
 
   async getGroupById(openid: string, _id: string) {
