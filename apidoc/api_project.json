@@ -1,1 +1,1 @@
-{  "name": "hlw",  "version": "0.0.1",  "description": "",  "sampleUrl": false,  "defaultVersion": "0.0.0",  "apidoc": "0.3.0",  "generator": {    "name": "apidoc",    "time": "2020-09-27T11:06:00.440Z",    "url": "http://apidocjs.com",    "version": "0.17.7"  }}
+{  "name": "hlw",  "version": "0.0.1",  "description": "",  "sampleUrl": false,  "defaultVersion": "0.0.0",  "apidoc": "0.3.0",  "generator": {    "name": "apidoc",    "time": "2020-10-18T03:15:25.551Z",    "url": "http://apidocjs.com",    "version": "0.17.7"  }}
