@@ -335,6 +335,9 @@ export class UsersController {
             "age": "23-37岁", // 年龄
         },
   "finishRate": "95.24" // 完成度
+          "coin": 0, // 缘分币
+        "vipType": "", // 会员类型
+        "vipExpireAt": "", // 会员过期时间
 }
    }
 
