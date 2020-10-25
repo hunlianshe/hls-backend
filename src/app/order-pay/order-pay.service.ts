@@ -82,7 +82,7 @@ export class OrderPayService {
 
   async checkOrderStatus(user: any, params: any): Promise<any> {
     const orderInfo = await Order.findOne({
-      orderNum: params.orderNu,
+      orderNum: params.orderNum,
     })
     if (!orderInfo) {
       throw new HttpException('订单不存在', 400)
@@ -273,9 +273,9 @@ export class OrderPayService {
   prepareUserVipInfoAfterPay(user: any, orderInfo: any): any {
     const { payType, productType, period } = orderInfo.productInfo
     const userInfo: any = {}
-    if (orderInfo.productType === ProductType.COIN) {
+    if (productType === ProductType.COIN) {
       userInfo.coin = `${this.mathInstance.evaluate(
-        `${userInfo.coin || 0} + ${orderInfo.totalPrice}`,
+        `${user.coin || 0} + ${orderInfo.totalPrice}`,
       )}`
     } else {
       switch (payType) {
