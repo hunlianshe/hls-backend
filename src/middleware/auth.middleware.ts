@@ -10,7 +10,8 @@ export class AuthMiddleware implements NestMiddleware {
       req.url.includes('register') ||
       req.url.includes('adminlogin') ||
       req.url.includes('plist') ||
-      req.url.includes('adminuserlist')
+      req.url.includes('adminuserlist') ||
+      req.url.includes('avatorUrl')
     )
       return next()
     console.log('psychological-test', req.url)

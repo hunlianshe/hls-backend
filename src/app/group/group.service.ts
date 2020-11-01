@@ -1,6 +1,7 @@
 import { HttpException, Injectable } from '@nestjs/common'
 import { Message } from '../../models/message'
 import { Group } from '../../models/group'
+import { User } from 'src/models/user'
 
 @Injectable()
 export class GroupService {
