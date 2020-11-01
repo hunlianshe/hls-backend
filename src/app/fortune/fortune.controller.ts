@@ -15,7 +15,7 @@ export class FortuneController {
   constructor(private readonly fortuneService: FortuneService) {}
 
   @Get('updateDoc')
-  async updateDoc(): Promise<void> {
+  async updateDoc(): Promise<any> {
     await this.fortuneService.updateDoc()
   }
   /**

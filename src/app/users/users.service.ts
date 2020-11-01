@@ -42,6 +42,7 @@ export class UsersService {
 
   async getUserInfo(openid: string): Promise<any> {
     let user = await UserDetail.findOne({ openid })
+    let userNormal = await User.findOne({ openid })
     let keyCount = 0
     const keyArray = [
       'openid',
@@ -75,6 +76,10 @@ export class UsersService {
     return _.omit(
       {
         ...JSON.parse(JSON.stringify(user)),
+        coin: userNormal.coin || 0,
+        vipType: userNormal.vipType || '',
+        vipExpireAt: userNormal.vipExpireAt || '',
+        // coin: user.coin || 0,
         finishRate: ((keyCount / keyArray.length) * 100).toFixed(2),
       },
       ['weChatId'],

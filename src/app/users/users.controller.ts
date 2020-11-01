@@ -13,6 +13,7 @@ import { IUser } from '../../models/user'
 import { AjvService } from '../../lib/ajv.service'
 import { SecureService } from '../../lib/secure.service'
 import { IUserDetail } from '../../models/user_detail'
+import { vipList } from './vipInfo'
 
 @Controller('users')
 export class UsersController {
@@ -50,6 +51,11 @@ export class UsersController {
   @Get(':openid')
   async findByOpenId(@Param() params): Promise<IUser> {
     return this.userService.findByOpenId(params.openid)
+  }
+
+  @Get('vip/info')
+  async vipInfo(@Param() params): Promise<any> {
+    return vipList
   }
 
   /**
@@ -304,7 +310,7 @@ export class UsersController {
      code:200,
      data:{
   "openid": "2", // wx openid - string
-  "nickName": "刘宽", // 昵称  - string
+  "nickName": "刘宽", // 昵称  - strixng
   "gender": 1, //性别 - number
   "birth": "1995-2-4", //生日 - string
   "height": 183cm, //升高 - number
@@ -335,6 +341,9 @@ export class UsersController {
             "age": "23-37岁", // 年龄
         },
   "finishRate": "95.24" // 完成度
+          "coin": 0, // 缘分币
+        "vipType": "", // 会员类型
+        "vipExpireAt": "", // 会员过期时间
 }
    }
 
