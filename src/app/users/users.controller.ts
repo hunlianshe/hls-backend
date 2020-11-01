@@ -8,6 +8,7 @@ import {
   Req,
   Put,
   HttpException,
+  Res,
 } from '@nestjs/common'
 import { IUser } from '../../models/user'
 import { AjvService } from '../../lib/ajv.service'
@@ -633,5 +634,11 @@ msg:""
   @Post('adminuserlist')
   async adminuserlist(@Body() body): Promise<any> {
     return await this.userService.adminuserlist(body)
+  }
+
+  @Get('avatorUrl/:openid')
+  async GetAvator(@Param() params: any, @Res() res: any): Promise<any> {
+    let avatarUrl = await this.userService.getAvator(params.openid)
+    res.redirect(avatarUrl)
   }
 }

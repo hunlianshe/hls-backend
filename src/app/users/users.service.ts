@@ -174,4 +174,9 @@ export class UsersService {
     if (body.nickName) body.nickName = new RegExp(body.nickName, 'gi')
     return await UserDetail.find(body)
   }
+
+  async getAvator(openid: string) {
+    const group = await User.findOne({ openid })
+    return group.avatarUrl
+  }
 }
