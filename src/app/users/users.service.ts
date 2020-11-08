@@ -72,6 +72,7 @@ export class UsersService {
         keyCount += 1.0
       }
     }
+    moment().format('YYYY.M.D')
     user.finishRate = ((keyCount / keyArray.length) * 100).toFixed(2)
     return _.omit(
       {
