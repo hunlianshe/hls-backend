@@ -1,7 +1,7 @@
 import { Injectable, HttpException } from '@nestjs/common'
 import { VipInfo, IVipInfo } from '../../models/vipInfo'
 import { IOrder, Order } from '../../models/order'
-import { generateOrderNum } from '../../lib/tools'
+import { generateOrderNum, dealWithPrice } from '../../lib/tools'
 import WxPay from '../../lib/wxpay'
 import * as moment from 'moment'
 import { create, all } from 'mathjs'
@@ -64,17 +64,22 @@ export class OrderPayService {
     if (user.vipType === ProductType.BRONZE) {
       const vipInfo = vipList.filter(vi => vi.name === ProductType.PLATINUM)[0]
       const days = moment(user.vipExpireAt).diff(moment(), 'day')
+      let strNumber: any = `${this.mathInstance.evaluate(
+        `${vipInfo.yearPrice} / 365`,
+      )}`
+      const pricePerDay = dealWithPrice(
+        `${this.mathInstance.evaluate(`${vipInfo.yearPrice} / 365`)}`,
+      )
+      const totalPrice = dealWithPrice(
+        `${this.mathInstance.evaluate(`${vipInfo.yearPrice} / 365 * ${days}`)}`,
+      )
       return {
         user,
         vipList,
         upgradeInfo: {
           left: days,
-          pricePerDay: `${this.mathInstance.evaluate(
-            `${vipInfo.yearPrice} / 365`,
-          )}`,
-          totalPrice: `${this.mathInstance.evaluate(
-            `${vipInfo.yearPrice} / 365 * ${days}`,
-          )}`,
+          pricePerDay: pricePerDay,
+          totalPrice: totalPrice,
         },
       }
     }
@@ -167,10 +172,11 @@ export class OrderPayService {
     const vipInfo = await VipInfo.findOne({
       name: ProductType.PLATINUM,
     })
-    const days = moment().diff(user.vipExpireAt, 'day')
-    orderInfo.totalPrice = this.mathInstance.evaluate(
-      `${vipInfo.yearPrice} / 365 * ${days}`,
+    const days = moment(user.vipExpireAt).diff(moment(), 'day')
+    orderInfo.totalPrice = dealWithPrice(
+      `${this.mathInstance.evaluate(`${vipInfo.yearPrice} / 365 * ${days}`)}`,
     )
+
     orderInfo.productInfo.payMethod = params.payMethod
     orderInfo.productInfo.payType = PayType.UPGRADE
     orderInfo.productInfo.productType = ProductType.PLATINUM
@@ -245,6 +251,7 @@ export class OrderPayService {
     }
 
     const userInfo = this.prepareUserVipInfoAfterPay(user, orderInfo)
+    console.log(userInfo.vipExpireAt)
 
     await Order.update(
       {
@@ -277,33 +284,35 @@ export class OrderPayService {
       userInfo.coin = `${this.mathInstance.evaluate(
         `${user.coin || 0} + ${orderInfo.totalPrice}`,
       )}`
-    } else {
-      switch (payType) {
-        case PayType.JOIN:
-          userInfo.vipExpireAt = this.caculateExpireAt(period)
-          userInfo.vipType = productType
-          break
-        case PayType.RENEW:
-          userInfo.vipExpireAt = this.caculateExpireAt(period, user.vipExpireAt)
-          userInfo.vipType = productType
-        case PayType.UPGRADE:
-          userInfo.vipExpireAt = user.vipExpireAt
-          userInfo.vipType = productType
-        default:
-          break
-      }
+    }
+    switch (payType) {
+      case PayType.JOIN:
+        userInfo.vipExpireAt = this.caculateExpireAt(period)
+        userInfo.vipType = productType
+        break
+      case PayType.RENEW:
+        userInfo.vipExpireAt = this.caculateExpireAt(period, user.vipExpireAt)
+        userInfo.vipType = productType
+        break
+      case PayType.UPGRADE:
+        userInfo.vipExpireAt = user.vipExpireAt
+        userInfo.vipType = productType
+        break
+      default:
+        break
     }
 
     return userInfo
   }
 
   caculateExpireAt(period: Period, time?: Date) {
-    if (period === 'season') {
-      return time ? moment(time).add(3, 'month') : moment().add(3, 'month')
-    } else {
-      return time
-        ? moment(time).add(1, period as any)
-        : moment().add(1, period as any)
+    switch (period) {
+      case 'season':
+        return time ? moment(time).add(1, 'Q') : moment().add(1, 'Q')
+      case 'month':
+        return time ? moment(time).add(1, 'M') : moment().add(1, 'M')
+      case 'year':
+        return time ? moment(time).add(1, 'y') : moment().add(1, 'y')
     }
   }
 

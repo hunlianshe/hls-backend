@@ -50,7 +50,8 @@ export default class WxPay {
     console.log(`------当前订单信息------`, JSON.stringify(orderDetails))
     const nonceStr = WxPay.createNonceStr()
     const timeStamp = WxPay.createTimeStamp()
-    const money = WxPay.getmoney(orderDetails.totalPrice)
+    // const money = WxPay.getmoney(orderDetails.totalPrice)
+    const money = WxPay.getmoney(0.01)
     const sign = this.paysignjsapi(
       orderDetails.orderNum,
       nonceStr,
