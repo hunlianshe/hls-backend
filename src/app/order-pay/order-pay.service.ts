@@ -372,15 +372,15 @@ export class OrderPayService {
 
       await Order.update(
         {
-          isPayed: true,
+          orderNum: orderInfo.orderNum,
         },
         {
-          where: {
-            orderNum: body.out_trade_no,
+          $set: {
+            isPayed: true,
           },
         },
       )
-      if (orderInfo.payMethod === PayMethod.COIN) {
+      if (orderInfo.productInfo.payMethod === PayMethod.COIN) {
         await User.updateOne(
           { openid: userInfo.openid },
           {
