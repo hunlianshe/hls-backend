@@ -380,28 +380,14 @@ export class OrderPayService {
           },
         },
       )
-      if (orderInfo.productInfo.payMethod === PayMethod.COIN) {
-        await User.updateOne(
-          { openid: userInfo.openid },
-          {
-            $set: {
-              ...userInfo,
-              coin: this.mathInstance.evaluate(
-                `${userInfo.coin} - ${orderInfo.totalPrice}`,
-              ),
-            },
+      await User.updateOne(
+        { openid: userInfo.openid },
+        {
+          $set: {
+            ...userInfo,
           },
-        )
-      } else {
-        await User.updateOne(
-          { openid: userInfo.openid },
-          {
-            $set: {
-              ...userInfo,
-            },
-          },
-        )
-      }
+        },
+      )
     }
   }
 }
