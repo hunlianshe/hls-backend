@@ -28,7 +28,10 @@ export class GroupService {
    * @param openid 用户id
    */
   async list(openid: string) {
-    const groups = await Group.find({ userIds: openid })
+    const groups = await Group.find({
+      userIds: openid,
+      lastMessage: { $exists: true },
+    })
       .sort({ updatedAt: -1 })
       .lean()
     return await Promise.all(
