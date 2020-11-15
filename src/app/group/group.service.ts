@@ -87,7 +87,7 @@ export class GroupService {
     const result = await Message.find({ cid, 'status.openid': openid })
       .skip(pageToken)
       .limit(pageSize)
-      // .sort({ createdAt: -1 })
+      .sort({ createdAt: -1 })
       .lean()
     return {
       nextPageToken: result.length < pageSize ? '' : pageToken + pageSize,
