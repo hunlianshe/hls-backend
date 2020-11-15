@@ -74,17 +74,25 @@ export class UsersService {
     }
     moment().format('YYYY.M.D')
     user.finishRate = ((keyCount / keyArray.length) * 100).toFixed(2)
-    return _.omit(
-      {
-        ...JSON.parse(JSON.stringify(user)),
-        coin: userNormal.coin || 0,
-        vipType: userNormal.vipType || '',
-        vipExpireAt: userNormal.vipExpireAt || '',
-        // coin: user.coin || 0,
-        finishRate: ((keyCount / keyArray.length) * 100).toFixed(2),
-      },
-      ['weChatId'],
-    )
+    return {
+      ...JSON.parse(JSON.stringify(user)),
+      coin: userNormal.coin || 0,
+      vipType: userNormal.vipType || '',
+      vipExpireAt: userNormal.vipExpireAt || '',
+      // coin: user.coin || 0,
+      finishRate: ((keyCount / keyArray.length) * 100).toFixed(2),
+    }
+    // return _.omit(
+    //   {
+    //     ...JSON.parse(JSON.stringify(user)),
+    //     coin: userNormal.coin || 0,
+    //     vipType: userNormal.vipType || '',
+    //     vipExpireAt: userNormal.vipExpireAt || '',
+    //     // coin: user.coin || 0,
+    //     finishRate: ((keyCount / keyArray.length) * 100).toFixed(2),
+    //   },
+    //   ['weChatId'],
+    // )
   }
 
   async like(me: string, openid: string): Promise<void> {
