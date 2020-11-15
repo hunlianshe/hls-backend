@@ -278,6 +278,14 @@ export class OrderPayService {
   }
 
   prepareUserVipInfoAfterPay(user: any, orderInfo: any): any {
+    /*
+        "productInfo" : {
+        "payMethod" : "coin",
+        "payType" : "renew",
+        "productType" : "platinum",
+        "period" : "month"
+    },
+    */
     const { payType, productType, period } = orderInfo.productInfo
     const userInfo: any = {}
     if (productType === ProductType.COIN) {
@@ -339,24 +347,44 @@ export class OrderPayService {
     return await this.wxService.payOrder(user, orderInfo)
   }
 
+  // wxPayBack Need to add logic
   async wxPayBack(body: any) {
     let orderInfo: any = await Order.findOne({
       where: {
         orderNum: body.out_trade_no,
       },
     })
+    let userInfo: any = await User.findOne({
+      where: {
+        _id: orderInfo.userId,
+      },
+    })
     if (
       orderInfo &&
+      orderInfo.isPayed === false &&
       body.result_code === 'SUCCESS' &&
       body.return_code === 'SUCCESS'
     ) {
+      userInfo = this.prepareUserVipInfoAfterPay(
+        userInfo,
+        orderInfo.productInfo,
+      )
+
       await Order.update(
         {
-          status: 2,
+          orderNum: orderInfo.orderNum,
         },
         {
-          where: {
-            orderNum: body.out_trade_no,
+          $set: {
+            isPayed: true,
+          },
+        },
+      )
+      await User.updateOne(
+        { openid: userInfo.openid },
+        {
+          $set: {
+            ...userInfo,
           },
         },
       )
