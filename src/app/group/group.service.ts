@@ -19,10 +19,11 @@ export class GroupService {
       })
     }
     let toUser = await User.findOne({ openid: toOpenId })
+    console.log('toUser', toUser)
     let groupSchema = new Group({
       createId,
       userIds,
-      groupName: toUser.userName,
+      groupName: toUser.nickName,
     })
     return await groupSchema.save()
   }
