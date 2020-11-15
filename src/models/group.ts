@@ -5,6 +5,7 @@ export interface IGroup extends Document {
   cid?: String
   userIds?: Array<String>
   createId: String
+  groupName: String
   lastMessage?: Object
   //-------Audit field-----------------------
   //create date

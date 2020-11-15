@@ -1,7 +1,7 @@
 import { HttpException, Injectable } from '@nestjs/common'
 import { Message } from '../../models/message'
 import { Group } from '../../models/group'
-import { User } from 'src/models/user'
+import { User } from '../../models/user'
 
 @Injectable()
 export class GroupService {
@@ -10,7 +10,20 @@ export class GroupService {
     if (group) {
       return group
     }
-    let groupSchema = new Group({ createId, userIds })
+    let toOpenId
+    if (userIds.length === 2) {
+      userIds.forEach(userId => {
+        if (userId !== createId) {
+          toOpenId = userId
+        }
+      })
+    }
+    let toUser = await User.findOne({ openid: toOpenId })
+    let groupSchema = new Group({
+      createId,
+      userIds,
+      groupName: toUser.userName,
+    })
     return await groupSchema.save()
   }
 
@@ -74,7 +87,7 @@ export class GroupService {
     const result = await Message.find({ cid, 'status.openid': openid })
       .skip(pageToken)
       .limit(pageSize)
-      .sort({ createdAt: -1 })
+      // .sort({ createdAt: -1 })
       .lean()
     return {
       nextPageToken: result.length < pageSize ? '' : pageToken + pageSize,
