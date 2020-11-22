@@ -64,18 +64,32 @@ export class GroupService {
     if (!group) {
       throw new HttpException('你不在当前会话，不能更新', 400)
     }
-    await Message.update(
+    console.log('openid-->', openid)
+    await Message.updateMany(
       { 'status.openid': openid },
       { $set: { 'status.$.msgUnRead': false } },
-      { $multi: true },
     )
   }
 
   async getConversationUnreadMessageCount(cid: string, openid: string) {
+    let result = await Message.find({
+      cid,
+      status: {
+        $elemMatch: {
+          openid: openid,
+          msgUnRead: true,
+        },
+      },
+    })
+    console.log('result', JSON.stringify(result))
     return await Message.count({
       cid,
-      'status.openid': openid,
-      'status.msgUnRead': true,
+      status: {
+        $elemMatch: {
+          openid: openid,
+          msgUnRead: true,
+        },
+      },
     })
   }
 
