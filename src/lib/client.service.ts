@@ -1,8 +1,10 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common'
 import * as config from 'config'
 import * as moment from 'moment'
+import { setValue, getValue } from './redis'
 const request = require('request-promise')
 let map = new Map()
+
 interface IApiClient {
   getOpenid(code: string): void
 }
@@ -57,12 +59,21 @@ export class ClientService {
 
   static async getHoroscope(params): Promise<any> {
     let url = `${config.HOROSCOPE.HOST}&${params}&key=${config.HOROSCOPE.KEY}`
-    if (map.get(url + moment().format('YYYYMMDD')))
-      return map.get(url + moment().format('YYYYMMDD'))
+
+    // transfer to redis
+    // if (map.get(url + moment().format('YYYYMMDD')))
+    //   return map.get(url + moment().format('YYYYMMDD'))
+    const value = await getValue(url + moment().format('YYYYMMDD'), true)
+    if (value) {
+      return value
+    }
+
     const haha = await request(url)
     console.log(`==========getHoroscope========`, haha)
     let result = JSON.parse(await request(url))
-    map.set(url + moment().format('YYYYMMDD'), result)
+    // transfer to redis
+    // map.set(url + moment().format('YYYYMMDD'), result)
+    await setValue(url + moment().format('YYYYMMDD'), result)
     return result
   }
 
@@ -73,11 +84,16 @@ export class ClientService {
     console.log('params', params)
     let url = `${config.TIANAPI.HOST}/txapi/xingzuo?${params}&key=${config.TIANAPI.KEY}`
     console.log('url', url)
-    if (map.get(url + moment().format('YYYYMMDD')))
-      return map.get(url + moment().format('YYYYMMDD'))
+    // if (map.get(url + moment().format('YYYYMMDD')))
+    //   return map.get(url + moment().format('YYYYMMDD'))
+    const value = await getValue(url + moment().format('YYYYMMDD'), true)
+    if (value) {
+      return value
+    }
     let result = JSON.parse(await request(url))
     console.log('result', result)
-    map.set(url + moment().format('YYYYMMDD'), result.result)
+    // map.set(url + moment().format('YYYYMMDD'), result.result)
+    await setValue(url + moment().format('YYYYMMDD'), result)
     return result.newslist[0]
   }
 }

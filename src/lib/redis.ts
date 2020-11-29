@@ -3,8 +3,37 @@ import { User } from '../models/user'
 import { Group } from '../models/group'
 import { Message } from '../models/message'
 import { SecureService } from './secure.service'
+import { promisify } from 'util'
+import { async } from 'rxjs/internal/scheduler/async'
 
 const redis = require('redis')
+export const redisClient = redis.createClient()
+
+export const getPromisefy = () => {
+  return promisify(redisClient.get).bind(redisClient)
+}
+
+export const setPromisefy = () => {
+  return promisify(redisClient.set).bind(redisClient)
+}
+
+export const setValue = async (key: string, value: any) => {
+  let result: any
+  if (typeof value === 'object') {
+    result = await setPromisefy()(key, JSON.stringify(value))
+  }
+  result = await setPromisefy()(key, JSON.stringify(value))
+  console.log(result)
+}
+
+export const getValue = async (key: string, needParse = false) => {
+  const value = await getPromisefy()(key)
+  if (needParse) {
+    return JSON.parse(value)
+  }
+  console.log('redis key', key, 'redis value', value)
+  return value
+}
 
 export const connectRedis: any = () => {
   const client = redis.createClient()
