@@ -75,6 +75,7 @@ export class OrderPayController {
       return_msg: 'OK',
     }
     res.type = 'application/xml; charset=utf-8'
+    console.log(`========wx pay call back`, body)
     await this.orderPayService.wxPayBack(body)
     return WxPay.json2Xml(sendData)
   }
