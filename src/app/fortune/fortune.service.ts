@@ -34,7 +34,6 @@ export class FortuneService {
         constellation: { $exists: true },
       })
       opposite = opposite[Math.ceil(Math.random() * opposite.length) - 1]
-      console.log(`======opposite====`, opposite)
       model = {
         salary: user.salary
           ? RulesService.generateSalaryScore(user.salary, opposite.salary)
@@ -58,7 +57,6 @@ export class FortuneService {
       })
 
       opposite = opposite[Math.ceil(Math.random() * opposite.length) - 1]
-      console.log(`======opposite====`, opposite)
       model = {
         salary: user.salary
           ? RulesService.generateSalaryScore(opposite.salary, user.salary)
