@@ -31,8 +31,10 @@ export class FortuneService {
         salary: { $exists: true },
         gender: 2,
         'objectInfo.salary': { $exists: true },
+        constellation: { $exists: true },
       })
       opposite = opposite[Math.ceil(Math.random() * opposite.length) - 1]
+      console.log(`======opposite====`, opposite)
       model = {
         salary: user.salary
           ? RulesService.generateSalaryScore(user.salary, opposite.salary)
@@ -52,9 +54,11 @@ export class FortuneService {
         gender: 1,
         salary: { $exists: true },
         'objectInfo.salary': { $exists: true },
+        constellation: { $exists: true },
       })
 
       opposite = opposite[Math.ceil(Math.random() * opposite.length) - 1]
+      console.log(`======opposite====`, opposite)
       model = {
         salary: user.salary
           ? RulesService.generateSalaryScore(opposite.salary, user.salary)
