@@ -5,11 +5,12 @@ import { User } from '../../models/user'
 
 @Injectable()
 export class GroupService {
-  async createGroup(userIds: Array<string>, createId: string) {
-    const group = await Group.findOne({ userIds: { $all: userIds } })
+  async createGroup(userIds: Array<string>, createId: string, me: any) {
+    const group = await Group.findOne({ 'users.openid': { $all: userIds } })
     if (group) {
       return group
     }
+
     let toOpenId
     if (userIds.length === 2) {
       userIds.forEach(userId => {
@@ -18,11 +19,23 @@ export class GroupService {
         }
       })
     }
+
     let toUser = await User.findOne({ openid: toOpenId })
-    console.log('toUser', toUser)
+
+    const users = [
+      {
+        nickName: toUser.nickName,
+        openid: toUser.openid,
+      },
+      {
+        nickName: me.nickName,
+        openid: me.openid,
+      },
+    ]
+
     let groupSchema = new Group({
       createId,
-      userIds,
+      users,
       groupName: toUser.nickName,
     })
     return await groupSchema.save()
@@ -43,7 +56,7 @@ export class GroupService {
    */
   async list(openid: string) {
     const groups = await Group.find({
-      userIds: openid,
+      'users.openid': openid,
       lastMessage: { $exists: true },
     })
       .sort({ updatedAt: -1 })
@@ -60,7 +73,7 @@ export class GroupService {
   }
 
   async readAll(openid: string, cid: string) {
-    const group = await Group.findOne({ _id: cid, userIds: openid })
+    const group = await Group.findOne({ _id: cid, 'users.openid': openid })
     if (!group) {
       throw new HttpException('你不在当前会话，不能更新', 400)
     }
