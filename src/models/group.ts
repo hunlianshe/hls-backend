@@ -19,7 +19,7 @@ var groupSchema = new mongoose.Schema(
     cid: { type: String },
     createId: { type: String },
     groupName: { type: String },
-    userIds: { type: Array },
+    users: { type: Array },
     lastMessage: { type: Object },
     //-------Audit field-----------------------
 

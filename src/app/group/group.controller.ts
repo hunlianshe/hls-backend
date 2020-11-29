@@ -57,7 +57,7 @@ export class GroupController {
     AjvService.verify(body, validator)
     let openid = req.user.openid
     body.userIds.push(openid)
-    return await this.groupService.createGroup(body.userIds, openid)
+    return await this.groupService.createGroup(body.userIds, openid, req.user)
   }
 
   /**
