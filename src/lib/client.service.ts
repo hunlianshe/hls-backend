@@ -60,6 +60,7 @@ export class ClientService {
     if (map.get(url + moment().format('YYYYMMDD')))
       return map.get(url + moment().format('YYYYMMDD'))
     const haha = await request(url)
+    console.log(`==========getHoroscope========`, haha)
     let result = JSON.parse(await request(url))
     map.set(url + moment().format('YYYYMMDD'), result)
     return result
