@@ -31,7 +31,7 @@ export class FortuneService {
         salary: { $exists: true },
         gender: 2,
         'objectInfo.salary': { $exists: true },
-        constellation: { $exists: true },
+        constellation: { $exists: true, $ne: '' },
       })
       opposite = opposite[Math.ceil(Math.random() * opposite.length) - 1]
       model = {
@@ -53,7 +53,7 @@ export class FortuneService {
         gender: 1,
         salary: { $exists: true },
         'objectInfo.salary': { $exists: true },
-        constellation: { $exists: true },
+        constellation: { $exists: true, $ne: '' },
       })
 
       opposite = opposite[Math.ceil(Math.random() * opposite.length) - 1]
