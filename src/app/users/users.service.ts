@@ -184,6 +184,69 @@ export class UsersService {
         .limit(10)
     }
   }
+
+  /*
+  {
+    age: {
+      from: 30
+      to: 40
+    },
+    height: {
+      from: 170,
+      to: 180
+    }
+    salary: string
+  }
+  */
+  async listUsersWithParam(body, user): Promise<any> {
+    const { gender } = user
+    const { objectId, age, height, salary } = body
+
+    const whereOptions: any = {
+      gender: { $ne: gender },
+    }
+    if (age) {
+      if (age.from) {
+        whereOptions.age = {
+          ...whereOptions.age,
+          $gte: age.from,
+        }
+      }
+      if (age.to) {
+        whereOptions.age = {
+          ...whereOptions.age,
+          $lte: age.to,
+        }
+      }
+    }
+    if (height) {
+      if (height.from) {
+        whereOptions.height = {
+          ...whereOptions.height,
+          $gte: height.from,
+        }
+      }
+      if (height.to) {
+        whereOptions.height = {
+          ...whereOptions.height,
+          $lte: height.to,
+        }
+      }
+    }
+
+    if (salary) {
+      whereOptions.salary = salary
+    }
+
+    if (objectId !== '') {
+      whereOptions._id = { $lt: ObjectId(objectId) }
+    }
+
+    return await UserDetail.find(whereOptions)
+      .sort({ _id: -1 })
+      .limit(10)
+  }
+
   async adminuserlist(body): Promise<IUserDetail[]> {
     if (body.nickName) body.nickName = new RegExp(body.nickName, 'gi')
     return await UserDetail.find(body)

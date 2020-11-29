@@ -506,7 +506,19 @@ msg:""
 @api {post} http://localhost:8009/users/listUsers  获取缘分列表
 @apiParamExample {json} Request-Example:
 {
-	"objectId": "5d7c8c0969b249fc58bdbced" // _id
+    "objectId": "5fa79752bb97350949ecae13", // _id
+    // 年龄
+    "age": {
+        "from": 30,
+        "to": 40
+    },
+    // 身高
+    "height": {
+        "from": 162,
+        "to": 163
+    },
+    // 收入
+    "salary": "5千以下"
 }
 
 @apiSuccessExample Success-Response:
@@ -571,7 +583,12 @@ msg:""
 */
   @Post('listUsers')
   async listUsers(@Body() body, @Req() req): Promise<any> {
-    return await this.userService.listUsers(body.objectId, req.user.gender)
+    return await this.userService.listUsersWithParam(body, req.user)
+  }
+
+  @Post('listUsers')
+  async listUsersWithParam(@Body() body, @Req() req): Promise<any> {
+    return await this.userService.listUsersWithParam(body, req.user)
   }
 
   /**
