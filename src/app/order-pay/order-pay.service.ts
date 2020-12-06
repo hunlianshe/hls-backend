@@ -63,15 +63,20 @@ export class OrderPayService {
     }
     if (user.vipType === ProductType.BRONZE) {
       const vipInfo = vipList.filter(vi => vi.name === ProductType.PLATINUM)[0]
+      const bronzeInfo = vipList.filter(vi => vi.name === ProductType.BRONZE)[0]
       const days = moment(user.vipExpireAt).diff(moment(), 'day')
       let strNumber: any = `${this.mathInstance.evaluate(
         `${vipInfo.yearPrice} / 365`,
       )}`
       const pricePerDay = dealWithPrice(
-        `${this.mathInstance.evaluate(`${vipInfo.yearPrice} / 365`)}`,
+        `${this.mathInstance.evaluate(
+          `${vipInfo.yearPrice} / 365 - ${bronzeInfo.yearPrice} / 365`,
+        )}`,
       )
       const totalPrice = dealWithPrice(
-        `${this.mathInstance.evaluate(`${vipInfo.yearPrice} / 365 * ${days}`)}`,
+        `${this.mathInstance.evaluate(
+          `(${vipInfo.yearPrice} / 365 - ${bronzeInfo.yearPrice} / 365) * ${days}`,
+        )}`,
       )
       return {
         user,
@@ -172,9 +177,14 @@ export class OrderPayService {
     const vipInfo = await VipInfo.findOne({
       name: ProductType.PLATINUM,
     })
+    const bronzeInfo = await VipInfo.findOne({
+      name: ProductType.BRONZE,
+    })
     const days = moment(user.vipExpireAt).diff(moment(), 'day')
     orderInfo.totalPrice = dealWithPrice(
-      `${this.mathInstance.evaluate(`${vipInfo.yearPrice} / 365 * ${days}`)}`,
+      `${this.mathInstance.evaluate(
+        `(${vipInfo.yearPrice} / 365 - ${bronzeInfo.yearPrice} / 365) * ${days}`,
+      )}`,
     )
 
     orderInfo.productInfo.payMethod = params.payMethod

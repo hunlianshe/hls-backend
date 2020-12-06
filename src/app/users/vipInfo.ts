@@ -1,3 +1,8 @@
+// 白金 20 60 240
+// 20 48 180
+
+// 黄铜 10 30 120
+// 10 24 78
 export const vipList = [
   {
     name: '无会员',
@@ -16,9 +21,11 @@ export const vipList = [
   },
   {
     name: '黄铜会员',
-    yearPrice: 120,
-    seasonPrice: 30,
+    yearPrice: 78,
+    seasonPrice: 24,
     monthPrice: 10,
+    seasonMonthPrice: 8,
+    yearMonthPrice: 6.5,
     horoscope: 99999,
     psychologicalTest: 99999,
     constellationMatching: 99999,
@@ -30,8 +37,10 @@ export const vipList = [
   },
   {
     name: '白金会员',
-    yearPrice: 240,
-    seasonPrice: 60,
+    yearPrice: 180,
+    seasonPrice: 48,
+    seasonMonthPrice: 16,
+    yearMonthPrice: 15,
     monthPrice: 20,
     horoscope: 99999,
     psychologicalTest: 99999,
