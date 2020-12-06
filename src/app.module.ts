@@ -12,6 +12,7 @@ import { GroupService } from './app/group/group.service'
 import { GroupController } from './app/group/group.controller'
 import { GroupModule } from './app/group/group.module'
 import { OrderPayModule } from './app/order-pay/order-pay.module'
+import { ImagesModule } from './app/images/images.module'
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { OrderPayModule } from './app/order-pay/order-pay.module'
     ConstellationStoryModule,
     GroupModule,
     OrderPayModule,
+    ImagesModule,
   ],
   controllers: [AppController, GroupController],
   providers: [AppService, GroupService],
