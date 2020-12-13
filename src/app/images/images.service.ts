@@ -19,9 +19,8 @@ const conf = new imagesearch.Config({
 export class ImagesService {
   async searchPicture(url: string): Promise<any> {
     const client = new imagesearch.default(conf)
-    var picContent = fs.createReadStream(
-      await this.downloadImage(url, 'public/teamplate'),
-    )
+    let path = await this.downloadImage(url, 'public/teamplate')
+    var picContent = fs.createReadStream(path)
     const searchImageByPicAdvanceRequest = new imagesearch.SearchImageByPicAdvanceRequest(
       {
         // 必填，图像搜索实例名称。
@@ -50,7 +49,7 @@ export class ImagesService {
         .pipe(fs.createWriteStream(`${dir}/${name}`))
         .on('close', (err, result) => {
           if (err) throw err
-          resolve()
+          resolve(`${dir}/${name}`)
         })
     })
   }
