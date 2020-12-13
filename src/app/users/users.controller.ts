@@ -54,11 +54,6 @@ export class UsersController {
     return this.userService.findByOpenId(params.openid)
   }
 
-  @Get('vip/info')
-  async vipInfo(@Param() params): Promise<any> {
-    return vipList
-  }
-
   /**
   @apiGroup User
   @apiVersion 0.1.0
@@ -583,11 +578,6 @@ msg:""
 */
   @Post('listUsers')
   async listUsers(@Body() body, @Req() req): Promise<any> {
-    return await this.userService.listUsersWithParam(body, req.user)
-  }
-
-  @Post('listUsers')
-  async listUsersWithParam(@Body() body, @Req() req): Promise<any> {
     return await this.userService.listUsersWithParam(body, req.user)
   }
 
