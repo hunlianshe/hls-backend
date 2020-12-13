@@ -20,6 +20,7 @@
     "apidoc": "apidoc -i src/ -o apidoc/"
   },
   "dependencies": {
+    "@alicloud/imagesearch": "^1.0.2",
     "@alicloud/pop-core": "^1.7.7",
     "@alicloud/sms-sdk": "^1.1.6",
     "@nestjs/common": "^6.0.0",

@@ -8,15 +8,10 @@ import { UserLikesModule } from './app/userLikes/userLikes.module'
 import { ProductModule } from './app/product/product.module'
 import { CollectionModule } from './app/collection/collection.module'
 import { NestFactory } from '@nestjs/core'
+import { ImagesModule } from './app/images/images.module'
 
 @Module({
-  imports: [
-    LibModule,
-    UsersModule,
-    UserLikesModule,
-    ProductModule,
-    CollectionModule,
-  ],
+  imports: [LibModule, UsersModule, ImagesModule],
   controllers: [AppController],
   providers: [AppService],
 })
