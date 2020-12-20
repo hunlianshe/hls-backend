@@ -88,7 +88,7 @@ export class ClientService {
     //   return map.get(url + moment().format('YYYYMMDD'))
     const value = await getValue(url + moment().format('YYYYMMDD'), true)
     if (value) {
-      return value
+      return value.newslist[0]
     }
     let result = JSON.parse(await request(url))
     console.log('result', result)
