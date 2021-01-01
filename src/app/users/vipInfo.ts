@@ -13,7 +13,7 @@ export const vipList = [
     monthPrice: 0,
     psychologicalTest: 99999,
     constellationMatching: 99999,
-    fateMatch: 3,
+    fateMatch: 99999,
     fateWatch: 20,
     fateChat: 3,
     whoLikeMe: 0,
