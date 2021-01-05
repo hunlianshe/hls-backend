@@ -26,7 +26,7 @@
     "@nestjs/core": "^6.0.0",
     "@nestjs/platform-express": "^6.0.0",
     "ajv": "^6.10.2",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "bluebird": "^3.7.2",
     "config": "^3.2.2",
     "jsonwebtoken": "^8.5.1",
